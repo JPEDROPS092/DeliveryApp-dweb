@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delícia Express - Delivery Gourmet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Transições suaves para troca de páginas */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilo personalizado para o banner */
+        .hero-banner {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 50vh; /* Adjusted height */
+            min-height: 400px;
+        }
+
+        /* Estilo para os cards de comida */
+        .food-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .food-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Estilo para o carrinho flutuante */
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            font-size: 11px; /* Slightly smaller */
+            font-weight: bold;
+            background-color: #EF4444; /* Red-600 */
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white; /* Add border */
+        }
+
+        /* Estilo para links de navegação ativos */
+        header .nav-link.active, #mobile-menu .nav-link.active {
+            color: #F97316; /* Orange-500 */
+            font-weight: bold;
+        }
+         header .nav-link.active {
+             border-bottom: 2px solid #F97316;
+             padding-bottom: 2px;
+         }
+         header .nav-link, #mobile-menu .nav-link {
+             padding-bottom: 4px; /* Ensure space for border */
+             transition: color 0.3s ease, border-color 0.3s ease;
+             color: #4B5563; /* Gray-600 */
+             border-bottom: 2px solid transparent;
+         }
+         header .nav-link:hover, #mobile-menu .nav-link:hover {
+             color: #F97316; /* Orange-500 */
+         }
+         /* Don't apply bottom border to mobile links */
+         #mobile-menu .nav-link {
+            border-bottom: none;
+            padding-bottom: 0;
+         }
+
+        /* Estilo para filtros de categoria ativos */
+        .category-filter.active {
+            background-color: #F97316; /* Orange-500 */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+         .category-filter {
+             transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+         }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <!-- Cabeçalho/Navegação -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center cursor-pointer nav-link-logo" data-page="home">
+                <i class="fas fa-utensils text-2xl text-orange-500 mr-2"></i>
+                <h1 class="text-2xl font-bold text-gray-800">Delícia <span class="text-orange-500">Express</span></h1>
+            </div>
+
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link active" data-page="home">Início</a>
+                <a href="#menu" class="nav-link" data-page="menu">Cardápio</a>
+                <a href="#about" class="nav-link" data-page="about">Sobre Nós</a>
+                <a href="#contact" class="nav-link" data-page="contact">Contato</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <a href="#cart" class="nav-link cart-icon p-2 rounded-full hover:bg-gray-100" data-page="cart">
+                        <i class="fas fa-shopping-cart text-xl text-gray-700"></i>
+                        <span class="cart-badge hidden">0</span>
+                    </a>
+                </div>
+                <button class="md:hidden text-gray-700 p-2 rounded hover:bg-gray-100" id="mobile-menu-button" aria-label="Abrir menu">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div class="md:hidden hidden bg-white py-2 px-4 shadow-lg border-t border-gray-200" id="mobile-menu">
+            <a href="#home" class="block py-2 nav-link active" data-page="home">Início</a>
+            <a href="#menu" class="block py-2 nav-link" data-page="menu">Cardápio</a>
+            <a href="#about" class="block py-2 nav-link" data-page="about">Sobre Nós</a>
+            <a href="#contact" class="block py-2 nav-link" data-page="contact">Contato</a>
+            <a href="#cart" class="block py-2 nav-link cart-icon-mobile" data-page="cart">Carrinho</a>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal (Páginas) -->
+    <main class="container mx-auto px-4 py-8 min-h-screen">
+        <!-- Página Inicial -->
+        <div class="page active" id="home-page">
+            <!-- Banner Hero -->
+            <section class="hero-banner rounded-lg flex items-center justify-center text-center text-white mb-12 shadow-lg">
+                <div class="px-6 bg-black bg-opacity-50 py-10 rounded-lg">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 drop-shadow-md">Comida deliciosa entregue na sua porta</h2>
+                    <p class="text-xl mb-8 drop-shadow-sm">Pratos gourmet preparados com ingredientes frescos e muito amor</p>
+                    <button class="nav-link-button bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 shadow-md" data-page="menu">
+                        Ver Cardápio
+                    </button>
+                </div>
+            </section>
+
+            <!-- Destaques do Cardápio -->
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Nossos Destaques</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Item 1 -->
+                    <div class="food-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=781&q=80" alt="Pizza Margherita" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-gray-800">Pizza Margherita</h3>
+                                <span class="text-orange-500 font-bold">R$ 45,90</span>
+                            </div>
+                            <p class="text-gray-600 mb-4 text-sm">Massa fina, molho de tomate caseiro, mussarela fresca, manjericão e azeite de oliva.</p>
+                            <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="1" data-name="Pizza Margherita" data-price="45.90">
+                                <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="food-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Hambúrguer Gourmet" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-gray-800">Hambúrguer Gourmet</h3>
+                                <span class="text-orange-500 font-bold">R$ 32,50</span>
+                            </div>
+                            <p class="text-gray-600 mb-4 text-sm">Pão brioche, carne angus 180g, queijo cheddar, bacon crocante e molho especial.</p>
+                            <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="2" data-name="Hambúrguer Gourmet" data-price="32.50">
+                               <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="food-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1527&q=80" alt="Tiramisu" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-gray-800">Tiramisu</h3>
+                                <span class="text-orange-500 font-bold">R$ 18,90</span>
+                            </div>
+                            <p class="text-gray-600 mb-4 text-sm">Sobremesa italiana clássica com camadas de biscoitos champanhe, café, mascarpone e cacau.</p>
+                            <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="3" data-name="Tiramisu" data-price="18.90">
+                                <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sobre Nós Resumo -->
+            <section class="bg-orange-50 rounded-lg p-8 mb-12 border border-orange-100">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-6 md:mb-0 md:pr-8">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Equipe do restaurante" class="rounded-lg shadow-md w-full">
+                    </div>
+                    <div class="md:w-1/2">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-4">Nossa História</h2>
+                        <p class="text-gray-700 mb-4">Fundado em 2010, o Delícia Express nasceu da paixão por comida de qualidade e do desejo de levar experiências gastronômicas incríveis para a casa dos nossos clientes.</p>
+                        <p class="text-gray-700 mb-6">Nossa equipe de chefs talentosos trabalha com ingredientes frescos e locais para criar pratos que encantam o paladar.</p>
+                        <a href="#about" class="nav-link-button text-orange-600 font-semibold inline-flex items-center hover:text-orange-700 transition duration-300" data-page="about">
+                            Conheça mais sobre nós <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Página de Cardápio -->
+        <div class="page" id="menu-page">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Nosso Cardápio Completo</h1>
+
+            <!-- Filtros -->
+            <div class="flex flex-wrap gap-2 mb-8 justify-center">
+                <button class="category-filter px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 text-sm font-medium active" data-category="all">Todos</button>
+                <button class="category-filter px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 text-sm font-medium" data-category="pizza">Pizzas</button>
+                <button class="category-filter px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 text-sm font-medium" data-category="burger">Lanches</button>
+                <button class="category-filter px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 text-sm font-medium" data-category="pasta">Massas</button>
+                <button class="category-filter px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 text-sm font-medium" data-category="dessert">Sobremesas</button>
+                <button class="category-filter px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 text-sm font-medium" data-category="drink">Bebidas</button>
+            </div>
+
+            <!-- Lista de Itens -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="menu-items">
+                <!-- Pizza Margherita -->
+                <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="pizza">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=781&q=80" alt="Pizza Margherita" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-gray-800">Pizza Margherita</h3>
+                            <span class="text-orange-500 font-bold">R$ 45,90</span>
+                        </div>
+                        <p class="text-gray-600 mb-4 text-sm">Massa fina, molho de tomate caseiro, mussarela fresca, manjericão e azeite.</p>
+                        <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="1" data-name="Pizza Margherita" data-price="45.90">
+                            <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hambúrguer Gourmet -->
+                <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="burger">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Hambúrguer Gourmet" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-gray-800">Hambúrguer Gourmet</h3>
+                            <span class="text-orange-500 font-bold">R$ 32,50</span>
+                        </div>
+                        <p class="text-gray-600 mb-4 text-sm">Pão brioche, carne angus 180g, cheddar, bacon crocante e molho especial.</p>
+                        <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="2" data-name="Hambúrguer Gourmet" data-price="32.50">
+                           <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tiramisu -->
+                <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="dessert">
+                    <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1527&q=80" alt="Tiramisu" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-gray-800">Tiramisu</h3>
+                            <span class="text-orange-500 font-bold">R$ 18,90</span>
+                        </div>
+                        <p class="text-gray-600 mb-4 text-sm">Clássico italiano com biscoitos champanhe, café, mascarpone e cacau.</p>
+                        <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="3" data-name="Tiramisu" data-price="18.90">
+                            <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pizza Calabresa -->
+                <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="pizza">
+                    <img src="https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Pizza Calabresa" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-gray-800">Pizza Calabresa</h3>
+                            <span class="text-orange-500 font-bold">R$ 48,90</span>
+                        </div>
+                        <p class="text-gray-600 mb-4 text-sm">Massa fina, molho de tomate, mussarela, calabresa fatiada, cebola e azeitonas.</p>
+                        <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="4" data-name="Pizza Calabresa" data-price="48.90">
+                            <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Batata Frita -->
+                <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="burger"> <!-- Lanche ou Acompanhamento? Adicionando a burger -->
+                    <img src="https://images.unsplash.com/photo-1585109649139-366815a0ac4f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Batata Frita" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-gray-800">Batata Frita Crocante</h3>
+                            <span class="text-orange-500 font-bold">R$ 15,90</span>
+                        </div>
+                        <p class="text-gray-600 mb-4 text-sm">Batata selecionada cortada em palitos, frita na hora e temperada com sal.</p>
+                        <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="5" data-name="Batata Frita Crocante" data-price="15.90">
+                            <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Spaghetti Carbonara -->
+                <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="pasta">
+                    <img src="https://images.unsplash.com/photo-1611270631113-9a3958f73a7f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Spaghetti Carbonara" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-gray-800">Spaghetti Carbonara</h3>
+                            <span class="text-orange-500 font-bold">R$ 36,50</span>
+                        </div>
+                        <p class="text-gray-600 mb-4 text-sm">Massa al dente com molho cremoso de ovos, parmesão, bacon e pimenta.</p>
+                        <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="6" data-name="Spaghetti Carbonara" data-price="36.50">
+                            <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Brownie com Sorvete -->
+                <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="dessert">
+                    <img src="https://images.unsplash.com/photo-1564355808539-22fda35bed7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" alt="Brownie com Sorvete" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-gray-800">Brownie com Sorvete</h3>
+                            <span class="text-orange-500 font-bold">R$ 22,90</span>
+                        </div>
+                        <p class="text-gray-600 mb-4 text-sm">Brownie quente com sorvete de baunilha e calda de chocolate.</p>
+                        <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="7" data-name="Brownie com Sorvete" data-price="22.90">
+                            <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Refrigerante -->
+                <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="drink">
+                    <img src="https://images.unsplash.com/photo-1554866585-cd948ca90f68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1635&q=80" alt="Refrigerante" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-gray-800">Refrigerante 350ml</h3>
+                            <span class="text-orange-500 font-bold">R$ 7,90</span>
+                        </div>
+                        <p class="text-gray-600 mb-4 text-sm">Lata. Sabores: Coca-Cola, Guaraná, Fanta Laranja ou Sprite.</p>
+                        <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="8" data-name="Refrigerante 350ml" data-price="7.90">
+                            <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Suco Natural -->
+                <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="drink">
+                    <img src="https://images.unsplash.com/photo-1603569283847-aa6e0b3275c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Suco Natural" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-gray-800">Suco Natural 500ml</h3>
+                            <span class="text-orange-500 font-bold">R$ 12,90</span>
+                        </div>
+                        <p class="text-gray-600 mb-4 text-sm">Feito na hora. Sabores: Laranja, Maracujá, Abacaxi c/ Hortelã, Morango.</p>
+                        <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="9" data-name="Suco Natural 500ml" data-price="12.90">
+                           <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página de Carrinho -->
+        <div class="page" id="cart-page">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Seu Carrinho de Compras</h1>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Itens do Carrinho -->
+                <div class="lg:w-2/3">
+                    <div class="bg-white rounded-lg shadow-md p-4 sm:p-6" id="cart-items-container">
+                        <div class="text-center py-8" id="empty-cart-message">
+                            <i class="fas fa-shopping-cart text-6xl text-gray-300 mb-4"></i>
+                            <h3 class="text-xl font-semibold text-gray-600 mb-2">Seu carrinho está vazio</h3>
+                            <p class="text-gray-500 mb-4">Adicione itens deliciosos do nosso cardápio!</p>
+                            <a href="#menu" class="nav-link-button inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded transition duration-300" data-page="menu">
+                                Ver Cardápio
+                            </a>
+                        </div>
+
+                        <!-- Itens serão adicionados aqui dinamicamente -->
+                        <div id="cart-items-list" class="hidden space-y-4">
+                            <!-- Exemplo de item (será gerado dinamicamente) -->
+                            <!--
+                            <div class="cart-item flex flex-col sm:flex-row items-center py-4 border-b border-gray-200 gap-3 sm:gap-4" data-id="1">
+                                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=781&q=80" alt="Pizza Margherita" class="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-md flex-shrink-0 border">
+                                <div class="ml-0 sm:ml-4 flex-grow text-center sm:text-left">
+                                    <h3 class="font-bold text-gray-800 text-base sm:text-lg">Pizza Margherita</h3>
+                                    <p class="text-gray-600 text-sm">R$ 45,90</p>
+                                </div>
+                                <div class="flex items-center flex-shrink-0">
+                                    <button class="quantity-change decrease-quantity w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition duration-300" data-action="decrease">
+                                        <i class="fas fa-minus text-xs text-gray-700"></i>
+                                    </button>
+                                    <span class="quantity mx-3 font-bold text-gray-800 w-8 text-center">1</span>
+                                    <button class="quantity-change increase-quantity w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition duration-300" data-action="increase">
+                                        <i class="fas fa-plus text-xs text-gray-700"></i>
+                                    </button>
+                                </div>
+                                <span class="item-total font-bold text-gray-800 w-20 text-center sm:text-right">R$ 45,90</span>
+                                <button class="remove-item ml-0 sm:ml-4 text-red-500 hover:text-red-700 transition duration-300 flex-shrink-0 p-2">
+                                    <i class="fas fa-trash fa-lg"></i>
+                                </button>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumo do Pedido -->
+                <div class="lg:w-1/3">
+                    <div class="bg-white rounded-lg shadow-md p-6 sticky top-24"> {/* Adjust top position considering header height */}
+                        <h2 class="text-xl font-bold text-gray-800 mb-6 border-b pb-3">Resumo do Pedido</h2>
+
+                        <div class="mb-6 space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Subtotal</span>
+                                <span class="font-medium text-gray-800" id="subtotal">R$ 0,00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Taxa de Entrega</span>
+                                <span class="font-medium text-gray-800" id="delivery-fee">R$ 8,00</span>
+                            </div>
+                            <div class="flex justify-between border-t border-gray-200 pt-4 mt-4">
+                                <span class="font-bold text-lg">Total</span>
+                                <span class="font-bold text-orange-500 text-xl" id="total">R$ 8,00</span>
+                            </div>
+                        </div>
+
+                        <button class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed" id="checkout-button" disabled>
+                            <i class="fas fa-check-circle mr-2"></i>Finalizar Pedido
+                        </button>
+
+                        <p class="text-xs text-gray-500 mt-4 text-center">Ao finalizar, você confirma seu pedido.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página Sobre Nós -->
+        <div class="page" id="about-page">
+             <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Nossa História</h1>
+            <div class="flex flex-col md:flex-row gap-12 mb-12 items-center">
+                <div class="md:w-1/2">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Paixão por Sabor, Entregue a Você</h2>
+                    <p class="text-gray-700 mb-4 leading-relaxed">O Delícia Express foi fundado em 2010 pelo chef Roberto Silva, com a missão de trazer comida de qualidade para o delivery, sem abrir mão do sabor e da apresentação dos pratos.</p>
+                    <p class="text-gray-700 mb-4 leading-relaxed">Começamos como uma pequena cozinha no bairro da Liberdade, em São Paulo, e hoje atendemos toda a cidade com nossa rede de entregadores próprios, garantindo que sua comida chegue quentinha e no tempo certo.</p>
+                    <p class="text-gray-700 mb-6 leading-relaxed">Nossa equipe é formada por chefs experientes que já trabalharam em restaurantes renomados no Brasil e no exterior, trazendo técnicas e sabores internacionais para o seu dia a dia.</p>
+
+                    <div class="bg-orange-50 p-6 rounded-lg border border-orange-200">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Nossa Missão</h3>
+                        <p class="text-gray-700 mb-3 italic">"Proporcionar experiências gastronômicas memoráveis através de pratos bem elaborados, ingredientes frescos e um serviço excepcional, tudo no conforto da sua casa."</p>
+
+                        <h3 class="text-xl font-bold text-gray-800 mb-3 mt-5">Nossos Valores</h3>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>Qualidade acima de tudo</li>
+                            <li>Respeito aos ingredientes e produtores</li>
+                            <li>Inovação constante no cardápio</li>
+                            <li>Sustentabilidade em nossas operações</li>
+                            <li>Satisfação total do cliente</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Nossa equipe" class="w-full rounded-lg shadow-xl mb-6">
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Nossa cozinha" class="w-full h-40 object-cover rounded-lg shadow-md">
+                        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Ingredientes frescos" class="w-full h-40 object-cover rounded-lg shadow-md">
+                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Prato sendo preparado" class="w-full h-40 object-cover rounded-lg shadow-md">
+                        <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1398&q=80" alt="Entregador" class="w-full h-40 object-cover rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-100 rounded-lg p-8 mt-12 border border-gray-200">
+                <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Conheça Nossos Chefs</h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Chef 1 -->
+                    <div class="bg-white rounded-lg overflow-hidden shadow-lg text-center p-6 transform hover:scale-105 transition duration-300">
+                        <img src="https://images.unsplash.com/photo-1581299894007-aaa50297cf16?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Chef Roberto Silva" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-orange-300">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">Roberto Silva</h3>
+                        <p class="text-orange-600 font-semibold mb-3">Chef Executivo e Fundador</p>
+                        <p class="text-gray-600 text-sm">Formado pelo Cordon Bleu, traz 20+ anos de experiência internacional.</p>
+                    </div>
+
+                    <!-- Chef 2 -->
+                    <div class="bg-white rounded-lg overflow-hidden shadow-lg text-center p-6 transform hover:scale-105 transition duration-300">
+                        <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Chef Ana Beatriz" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-orange-300">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">Ana Beatriz</h3>
+                        <p class="text-orange-600 font-semibold mb-3">Chef de Confeitaria</p>
+                        <p class="text-gray-600 text-sm">Especialista em sobremesas premiadas, responsável por nossos doces incríveis.</p>
+                    </div>
+
+                    <!-- Chef 3 -->
+                   <div class="bg-white rounded-lg overflow-hidden shadow-lg text-center p-6 transform hover:scale-105 transition duration-300">
+                        <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Chef Carlos Mendes" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-orange-300">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">Carlos Mendes</h3>
+                        <p class="text-orange-600 font-semibold mb-3">Chef de Massas</p>
+                        <p class="text-gray-600 text-sm">Com raízes italianas, domina a arte da massa fresca e molhos autênticos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página de Contato -->
+        <div class="page" id="contact-page">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Entre em Contato Conosco</h1>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Formulário -->
+                <div class="lg:w-1/2">
+                    <div class="bg-white rounded-lg shadow-md p-8">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Envie sua mensagem</h2>
+
+                        <form id="contact-form">
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-700 font-medium mb-2 text-sm">Nome Completo</label>
+                                <input type="text" id="name" name="name" placeholder="Seu nome" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-300" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-700 font-medium mb-2 text-sm">E-mail</label>
+                                <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-300" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="subject" class="block text-gray-700 font-medium mb-2 text-sm">Assunto</label>
+                                <select id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-300">
+                                    <option value="feedback">Feedback sobre Pedido</option>
+                                    <option value="complaint">Reclamação</option>
+                                    <option value="suggestion">Sugestão</option>
+                                    <option value="partnership">Parceria Comercial</option>
+                                    <option value="other">Outro Assunto</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="message" class="block text-gray-700 font-medium mb-2 text-sm">Sua Mensagem</label>
+                                <textarea id="message" name="message" rows="5" placeholder="Digite sua mensagem aqui..." class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-300" required></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded transition duration-300 shadow-md">
+                                <i class="fas fa-paper-plane mr-2"></i>Enviar Mensagem
+                            </button>
+                            <p id="form-feedback" class="text-sm mt-4 text-center"></p>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Informações de Contato -->
+                <div class="lg:w-1/2">
+                    <div class="bg-white rounded-lg shadow-md p-8 mb-6">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Nossas Informações</h2>
+
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-orange-500 text-xl mt-1 mr-4 w-6 text-center"></i>
+                                <div>
+                                    <h3 class="font-bold text-gray-800">Endereço</h3>
+                                    <p class="text-gray-600">Rua das Delícias, 123 - Bairro Saboroso<br>São Paulo - SP, 01500-000</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <i class="fas fa-phone-alt text-orange-500 text-xl mt-1 mr-4 w-6 text-center"></i>
+                                <div>
+                                    <h3 class="font-bold text-gray-800">Telefone</h3>
+                                    <p class="text-gray-600">Central de Pedidos: <a href="tel:+551112345678" class="hover:text-orange-600">(11) 1234-5678</a></p>
+                                    <p class="text-gray-600">WhatsApp: <a href="https://wa.me/5511987654321" target="_blank" class="hover:text-orange-600">(11) 98765-4321</a> <i class="fab fa-whatsapp text-green-500"></i></p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <i class="fas fa-envelope text-orange-500 text-xl mt-1 mr-4 w-6 text-center"></i>
+                                <div>
+                                    <h3 class="font-bold text-gray-800">E-mail</h3>
+                                    <p class="text-gray-600"><a href="mailto:contato@deliciaexpress.com.br" class="hover:text-orange-600">contato@deliciaexpress.com.br</a></p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <i class="fas fa-clock text-orange-500 text-xl mt-1 mr-4 w-6 text-center"></i>
+                                <div>
+                                    <h3 class="font-bold text-gray-800">Horário de Funcionamento</h3>
+                                    <p class="text-gray-600">Segunda a Sexta: 11h às 23h</p>
+                                    <p class="text-gray-600">Sábado e Domingo: 11h às 00h</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mapa -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <!-- Replace YOUR_API_KEY with a real key for a dynamic map, or use this static placeholder -->
+                        <img src="https://maps.googleapis.com/maps/api/staticmap?center=-23.5617,-46.6560&zoom=15&size=600x300&maptype=roadmap&markers=color:orange%7C-23.5617,-46.6560&key=YOUR_API_KEY" alt="Mapa da localização - Placeholder" class="w-full h-64 object-cover border-b">
+                         <div class="p-4 bg-gray-50">
+                            <h3 class="font-bold text-gray-800 mb-1">Nossa Localização</h3>
+                            <p class="text-gray-600 text-sm">Venha nos visitar ou peça pelo delivery!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-white pt-12 pb-8 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between gap-8">
+                <div class="mb-6 md:mb-0 md:w-1/3">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-utensils text-2xl text-orange-500 mr-2"></i>
+                        <h2 class="text-2xl font-bold">Delícia <span class="text-orange-500">Express</span></h2>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">Entregando experiências gastronômicas incríveis desde 2010. Qualidade, sabor e conveniência em cada pedido.</p>
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold mb-3 uppercase tracking-wider text-gray-300">Baixe nosso App</h3>
+                        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                            <a href="#" class="flex items-center bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition duration-300">
+                                <i class="fab fa-apple text-2xl mr-2"></i>
+                                <div>
+                                    <span class="text-xs block">Disponível na</span>
+                                    <span class="font-bold text-sm">App Store</span>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-center bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition duration-300">
+                                <i class="fab fa-google-play text-2xl mr-2"></i>
+                                <div>
+                                    <span class="text-xs block">Disponível no</span>
+                                    <span class="font-bold text-sm">Google Play</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 md:w-2/3">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 uppercase tracking-wider text-gray-300">Links Rápidos</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#home" class="nav-link-footer text-gray-400 hover:text-white transition duration-300 text-sm" data-page="home">Início</a></li>
+                            <li><a href="#menu" class="nav-link-footer text-gray-400 hover:text-white transition duration-300 text-sm" data-page="menu">Cardápio</a></li>
+                            <li><a href="#about" class="nav-link-footer text-gray-400 hover:text-white transition duration-300 text-sm" data-page="about">Sobre Nós</a></li>
+                            <li><a href="#contact" class="nav-link-footer text-gray-400 hover:text-white transition duration-300 text-sm" data-page="contact">Contato</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300 text-sm">FAQ</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300 text-sm">Termos de Serviço</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                         <h3 class="text-lg font-semibold mb-4 uppercase tracking-wider text-gray-300">Categorias</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#menu" class="nav-link-footer text-gray-400 hover:text-white transition duration-300 text-sm" data-page="menu" data-category="pizza">Pizzas</a></li>
+                            <li><a href="#menu" class="nav-link-footer text-gray-400 hover:text-white transition duration-300 text-sm" data-page="menu" data-category="burger">Lanches</a></li>
+                            <li><a href="#menu" class="nav-link-footer text-gray-400 hover:text-white transition duration-300 text-sm" data-page="menu" data-category="pasta">Massas</a></li>
+                            <li><a href="#menu" class="nav-link-footer text-gray-400 hover:text-white transition duration-300 text-sm" data-page="menu" data-category="dessert">Sobremesas</a></li>
+                            <li><a href="#menu" class="nav-link-footer text-gray-400 hover:text-white transition duration-300 text-sm" data-page="menu" data-category="drink">Bebidas</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 uppercase tracking-wider text-gray-300">Siga-nos</h3>
+                        <div class="flex space-x-4 mb-6">
+                            <a href="#" aria-label="Facebook" class="text-gray-400 hover:text-orange-400 transition duration-300 text-xl"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram" class="text-gray-400 hover:text-orange-400 transition duration-300 text-xl"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Twitter" class="text-gray-400 hover:text-orange-400 transition duration-300 text-xl"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Whatsapp" class="text-gray-400 hover:text-orange-400 transition duration-300 text-xl"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                         <h3 class="text-lg font-semibold mb-3 uppercase tracking-wider text-gray-300">Pagamento</h3>
+                         <div class="flex space-x-2">
+                            <i class="fab fa-cc-visa text-2xl text-gray-400" title="Visa"></i>
+                            <i class="fab fa-cc-mastercard text-2xl text-gray-400" title="Mastercard"></i>
+                            <i class="fab fa-cc-amex text-2xl text-gray-400" title="American Express"></i>
+                            <i class="fas fa-qrcode text-2xl text-gray-400" title="PIX"></i>
+                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-10 pt-6 text-center text-gray-500 text-sm">
+                <p>© 2024 Delícia Express. Todos os direitos reservados. Desenvolvido com <i class="fas fa-heart text-red-500"></i>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Elementos Globais ---
+            const allNavLinks = document.querySelectorAll('.nav-link, .nav-link-button, .nav-link-logo, .nav-link-footer'); // Select all clickable navigation elements
+            const pages = document.querySelectorAll('.page');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const cartIcon = document.querySelector('.cart-icon');
+            const cartBadge = document.querySelector('.cart-badge');
+            // Buttons are selected dynamically when menu/home loads
+            const categoryFilters = document.querySelectorAll('.category-filter');
+            const contactForm = document.getElementById('contact-form');
+            const cartItemsContainer = document.getElementById('cart-items-list');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            const subtotalElement = document.getElementById('subtotal');
+            const deliveryFeeElement = document.getElementById('delivery-fee');
+            const totalElement = document.getElementById('total');
+            const checkoutButton = document.getElementById('checkout-button');
+            const menuItemsContainer = document.getElementById('menu-items');
+            const formFeedback = document.getElementById('form-feedback');
+
+            // --- Estado do Carrinho ---
+            let cart = JSON.parse(localStorage.getItem('deliciaExpressCart')) || [];
+            const DELIVERY_FEE = 8.00;
+
+            // --- Mapa de Imagens (para buscar no carrinho) ---
+            const itemImages = {};
+            document.querySelectorAll('.food-card[data-id]').forEach(card => {
+                const id = card.dataset.id;
+                const img = card.querySelector('img');
+                if(id && img) {
+                    itemImages[id] = img.src;
+                }
+            });
+
+            function getItemImage(itemId) {
+                return itemImages[itemId] || 'https://via.placeholder.com/100x100.png?text=Prato'; // Fallback
+            }
+
+            // --- Funções do Carrinho ---
+
+            function saveCart() {
+                localStorage.setItem('deliciaExpressCart', JSON.stringify(cart));
+            }
+
+            function formatCurrency(value) {
+                if (typeof value !== 'number') {
+                   value = 0; // Default to 0 if not a number
+                }
+                return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            }
+
+            function updateCartBadge() {
+                const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+                if (totalItems > 0) {
+                    cartBadge.textContent = totalItems > 99 ? '99+' : totalItems;
+                    cartBadge.classList.remove('hidden');
+                } else {
+                    cartBadge.classList.add('hidden');
+                }
+            }
+
+            function updateCartPage() {
+                // Only run if the cart page elements exist (i.e., we are potentially on the cart page)
+                if (!cartItemsContainer || !emptyCartMessage || !subtotalElement || !totalElement || !deliveryFeeElement || !checkoutButton) return;
+
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '';
+                    cartItemsContainer.classList.add('hidden');
+                    emptyCartMessage.classList.remove('hidden');
+                    subtotalElement.textContent = formatCurrency(0);
+                    totalElement.textContent = formatCurrency(DELIVERY_FEE);
+                    deliveryFeeElement.textContent = formatCurrency(DELIVERY_FEE);
+                    checkoutButton.disabled = true;
+                    checkoutButton.classList.add('opacity-50', 'cursor-not-allowed');
+                    checkoutButton.classList.remove('bg-green-500', 'hover:bg-green-600');
+                    checkoutButton.classList.add('bg-gray-400'); // Use gray when disabled
+                    return;
+                }
+
+                emptyCartMessage.classList.add('hidden');
+                cartItemsContainer.classList.remove('hidden');
+
+                let cartItemsHTML = '';
+                let subtotal = 0;
+
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    subtotal += itemTotal;
+                    const itemImage = getItemImage(item.id);
+
+                    cartItemsHTML += `
+                        <div class="cart-item flex flex-col sm:flex-row items-center py-4 border-b border-gray-200 gap-3 sm:gap-4" data-id="${item.id}">
+                            <img src="${itemImage}" alt="${item.name}" class="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-md flex-shrink-0 border">
+                            <div class="ml-0 sm:ml-4 flex-grow text-center sm:text-left">
+                                <h3 class="font-bold text-gray-800 text-base sm:text-lg">${item.name}</h3>
+                                <p class="text-gray-600 text-sm">${formatCurrency(item.price)}</p>
+                            </div>
+                            <div class="flex items-center flex-shrink-0">
+                                <button class="quantity-change decrease-quantity w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition duration-300" data-action="decrease" aria-label="Diminuir quantidade de ${item.name}">
+                                    <i class="fas fa-minus text-xs text-gray-700"></i>
+                                </button>
+                                <span class="quantity mx-3 font-bold text-gray-800 w-8 text-center" aria-live="polite">${item.quantity}</span>
+                                <button class="quantity-change increase-quantity w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition duration-300" data-action="increase" aria-label="Aumentar quantidade de ${item.name}">
+                                    <i class="fas fa-plus text-xs text-gray-700"></i>
+                                </button>
+                            </div>
+                            <span class="item-total font-bold text-gray-800 w-20 text-center sm:text-right" aria-label="Subtotal do item">${formatCurrency(itemTotal)}</span>
+                            <button class="remove-item ml-0 sm:ml-4 text-red-500 hover:text-red-700 transition duration-300 flex-shrink-0 p-2" aria-label="Remover ${item.name} do carrinho">
+                                <i class="fas fa-trash fa-lg"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+
+                cartItemsContainer.innerHTML = cartItemsHTML;
+
+                const total = subtotal + DELIVERY_FEE;
+                subtotalElement.textContent = formatCurrency(subtotal);
+                deliveryFeeElement.textContent = formatCurrency(DELIVERY_FEE);
+                totalElement.textContent = formatCurrency(total);
+                checkoutButton.disabled = false;
+                checkoutButton.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-400');
+                checkoutButton.classList.add('bg-green-500', 'hover:bg-green-600');
+
+
+                // Re-attach event listeners for cart items (quantity change and remove)
+                attachCartItemListeners();
+            }
+
+            function handleQuantityChange(button) {
+                const cartItemElement = button.closest('.cart-item');
+                if (!cartItemElement) return;
+
+                const itemId = parseInt(cartItemElement.dataset.id);
+                const action = button.dataset.action;
+                const itemIndex = cart.findIndex(item => item.id === itemId);
+
+                if (itemIndex === -1) return; // Item not found
+
+                if (action === 'increase') {
+                    cart[itemIndex].quantity++;
+                } else if (action === 'decrease') {
+                    if (cart[itemIndex].quantity > 1) {
+                        cart[itemIndex].quantity--;
+                    } else {
+                        // If quantity is 1 and decrease is clicked, remove the item
+                        cart.splice(itemIndex, 1);
+                    }
+                }
+
+                saveCart();
+                updateCartBadge();
+                updateCartPage(); // Redraw the cart page with updated values/items
+            }
+
+            function handleRemoveItem(button) {
+                const cartItemElement = button.closest('.cart-item');
+                 if (!cartItemElement) return;
+
+                const itemId = parseInt(cartItemElement.dataset.id);
+                const itemIndex = cart.findIndex(item => item.id === itemId);
+
+                if (itemIndex !== -1) {
+                    cart.splice(itemIndex, 1);
+                    saveCart();
+                    updateCartBadge();
+                    updateCartPage(); // Redraw the cart page
+                }
+            }
+
+            function attachCartItemListeners() {
+                 if (!cartItemsContainer) return;
+                // Use event delegation on the container for better performance
+                cartItemsContainer.addEventListener('click', function(event) {
+                    const target = event.target.closest('button'); // Find the closest button clicked
+                    if (!target) return; // Exit if the click wasn't on or inside a button
+
+                    if (target.classList.contains('quantity-change')) {
+                        handleQuantityChange(target);
+                    } else if (target.classList.contains('remove-item')) {
+                        handleRemoveItem(target);
+                    }
+                });
+            }
+
+            function handleAddToCart(button) {
+                 const id = parseInt(button.dataset.id);
+                 const name = button.dataset.name;
+                 const price = parseFloat(button.dataset.price);
+
+                 // Find image (might need adjustment if structure changes)
+                 const card = button.closest('.food-card');
+                 let image = itemImages[id]; // Use cached image if available
+                 if (!image && card) {
+                     const imgElement = card.querySelector('img');
+                     if (imgElement) image = imgElement.src;
+                 }
+                 if (!image) image = 'https://via.placeholder.com/100x100.png?text=Prato'; // Fallback
+
+                 // Add or update item in cart
+                 const existingItemIndex = cart.findIndex(item => item.id === id);
+
+                 if (existingItemIndex > -1) {
+                     cart[existingItemIndex].quantity++;
+                 } else {
+                     cart.push({ id, name, price, quantity: 1 });
+                      // Cache image source if adding for the first time and not cached yet
+                     if (!itemImages[id] && image !== 'https://via.placeholder.com/100x100.png?text=Prato') {
+                         itemImages[id] = image;
+                     }
+                 }
+
+                 saveCart();
+                 updateCartBadge();
+
+                 // --- Visual Feedback ---
+                 const originalText = button.innerHTML; // Store original HTML
+                 button.innerHTML = '<i class="fas fa-check mr-2"></i>Adicionado!';
+                 button.classList.remove('bg-orange-500', 'hover:bg-orange-600');
+                 button.classList.add('bg-green-500');
+                 button.disabled = true;
+
+                 setTimeout(() => {
+                     button.innerHTML = originalText; // Restore original HTML
+                     button.classList.remove('bg-green-500');
+                     button.classList.add('bg-orange-500', 'hover:bg-orange-600');
+                     button.disabled = false;
+                 }, 1200); // Duration of feedback
+            }
+
+             // Attach listener to a parent container using event delegation for "Add to Cart"
+            document.body.addEventListener('click', function(event) {
+                if (event.target.closest('.add-to-cart')) {
+                    handleAddToCart(event.target.closest('.add-to-cart'));
+                }
+            });
+
+
+            // --- Funções de Navegação e Página ---
+
+            function showPage(pageId) {
+                // Hide all pages
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+
+                // Show the target page
+                const targetPage = document.getElementById(`${pageId}-page`);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+
+                     // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                    // Update cart display if navigating to the cart page
+                    if (pageId === 'cart') {
+                        updateCartPage(); // Explicitly call update for the cart page
+                    }
+
+                    // Update URL hash
+                    // window.location.hash = pageId; // Add hash to URL
+                } else {
+                    console.warn(`Page with ID ${pageId}-page not found.`);
+                    // Optionally show the home page as fallback
+                    document.getElementById('home-page').classList.add('active');
+                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+
+
+                // Update active state for navigation links
+                const headerLinks = document.querySelectorAll('header .nav-link');
+                const mobileLinks = document.querySelectorAll('#mobile-menu .nav-link');
+
+                headerLinks.forEach(link => {
+                    link.classList.toggle('active', link.dataset.page === pageId);
+                });
+                 mobileLinks.forEach(link => {
+                    link.classList.toggle('active', link.dataset.page === pageId);
+                });
+            }
+
+            function handleNavigation(event) {
+                 event.preventDefault(); // Prevent default anchor behavior
+                 const link = event.currentTarget; // Get the link that was clicked
+                 const pageId = link.dataset.page;
+
+                 if (pageId) {
+                     showPage(pageId);
+
+                     // Special handling for category links from footer/elsewhere
+                     const category = link.dataset.category;
+                     if (pageId === 'menu' && category) {
+                         const filterButton = document.querySelector(`.category-filter[data-category="${category}"]`);
+                         if (filterButton) {
+                              // Ensure the menu page is visible before clicking filter
+                             setTimeout(() => filterButton.click(), 50); // Small delay maybe needed
+                         }
+                     }
+
+                     // Close mobile menu if open
+                     if (!mobileMenu.classList.contains('hidden')) {
+                         mobileMenu.classList.add('hidden');
+                     }
+                 }
+            }
+
+            // Attach navigation listeners
+             allNavLinks.forEach(link => {
+                link.addEventListener('click', handleNavigation);
+            });
+
+             // --- Mobile Menu ---
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                 // Toggle aria-expanded attribute for accessibility
+                const isExpanded = !mobileMenu.classList.contains('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', isExpanded);
+            });
+
+            // --- Filtro de Categoria ---
+            categoryFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    const category = this.dataset.category;
+
+                    // Update active filter button style
+                    categoryFilters.forEach(f => {
+                        f.classList.remove('active', 'bg-orange-500', 'text-white', 'shadow-md');
+                        f.classList.add('bg-gray-200', 'hover:bg-gray-300');
+                    });
+                    this.classList.add('active', 'bg-orange-500', 'text-white', 'shadow-md');
+                    this.classList.remove('bg-gray-200', 'hover:bg-gray-300');
+
+                    // Filter menu items
+                    const menuItems = menuItemsContainer ? menuItemsContainer.querySelectorAll('.menu-item') : [];
+                    menuItems.forEach(item => {
+                        if (category === 'all' || item.dataset.category === category) {
+                            item.style.display = 'block'; // Or 'flex', 'grid' depending on layout needs
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // --- Formulário de Contato ---
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const name = document.getElementById('name').value.trim();
+                    const email = document.getElementById('email').value.trim();
+                    const message = document.getElementById('message').value.trim();
+
+                    if (!name || !email || !message) {
+                         if(formFeedback) {
+                             formFeedback.textContent = 'Por favor, preencha todos os campos obrigatórios.';
+                             formFeedback.className = 'text-sm mt-4 text-center text-red-600';
+                         }
+                        return;
+                    }
+
+                    // --- Simulação de Envio ---
+                    const submitButton = contactForm.querySelector('button[type="submit"]');
+                    const originalButtonText = submitButton.innerHTML;
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Enviando...';
+
+                     if(formFeedback) {
+                         formFeedback.textContent = ''; // Clear previous feedback
+                         formFeedback.className = 'text-sm mt-4 text-center';
+                     }
+
+                    setTimeout(() => {
+                        if(formFeedback) {
+                             formFeedback.textContent = `Obrigado, ${name}! Sua mensagem foi enviada com sucesso.`;
+                             formFeedback.className = 'text-sm mt-4 text-center text-green-600 font-medium';
+                        }
+                        contactForm.reset(); // Clear the form
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = originalButtonText;
+
+                         // Optionally clear feedback after a while
+                        setTimeout(() => { if(formFeedback) formFeedback.textContent = ''; }, 5000);
+
+                    }, 1500); // Simulate network delay
+                });
+            }
+
+
+             // --- Finalizar Pedido ---
+             if (checkoutButton) {
+                 checkoutButton.addEventListener('click', function() {
+                     if (cart.length === 0) return; // Shouldn't be possible if button is disabled, but good practice
+
+                     // Simulate order processing
+                     alert('Pedido finalizado com sucesso!\nObrigado por escolher o Delícia Express.\n(Em uma aplicação real, você seria redirecionado para pagamento)');
+
+                     // Clear cart
+                     cart = [];
+                     saveCart();
+                     updateCartBadge();
+                     updateCartPage(); // Update cart page view (will show empty message)
+
+                     // Navigate to home page after checkout
+                     showPage('home');
+                 });
+             }
+
+
+            // --- Inicialização ---
+            updateCartBadge();
+            attachCartItemListeners(); // Attach listeners for potential items already in cart on load (if cart page is initial)
+
+            // Determine initial page based on hash or default to home
+            const initialPageId = window.location.hash ? window.location.hash.substring(1) : 'home';
+            showPage(initialPageId);
+
+
+             // Handle direct navigation via hash changes (e.g., back/forward buttons)
+             window.addEventListener('hashchange', () => {
+                const pageId = window.location.hash ? window.location.hash.substring(1) : 'home';
+                showPage(pageId);
+            });
+
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio - Delícia Express</title>
+    <link rel="stylesheet" href="./css/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <!-- Cabeçalho/Navegação -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center cursor-pointer" onclick="window.location.href='index.html'">
+                <i class="fas fa-utensils text-2xl text-orange-500 mr-2"></i>
+                <h1 class="text-2xl font-bold text-gray-800">Delícia <span class="text-orange-500">Express</span></h1>
+            </div>
+
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="menu.html" class="nav-link active">Cardápio</a>
+                <a href="about.html" class="nav-link">Sobre Nós</a>
+                <a href="contact.html" class="nav-link">Contato</a>
+                <a href="delivery.html" class="nav-link">Delivery</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <div class="auth-links">
+                    <!-- Conteúdo será preenchido pelo auth.js -->
+                </div>
+                <div class="relative">
+                    <a href="cart.html" class="nav-link cart-icon p-2 rounded-full hover:bg-gray-100">
+                        <i class="fas fa-shopping-cart text-xl text-gray-700"></i>
+                        <span class="cart-badge hidden">0</span>
+                    </a>
+                </div>
+                <button class="md:hidden text-gray-700 p-2 rounded hover:bg-gray-100" id="mobile-menu-button" aria-label="Abrir menu">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div class="md:hidden hidden bg-white py-2 px-4 shadow-lg border-t border-gray-200" id="mobile-menu">
+            <a href="index.html" class="block py-2 nav-link">Início</a>
+            <a href="menu.html" class="block py-2 nav-link active">Cardápio</a>
+            <a href="about.html" class="block py-2 nav-link">Sobre Nós</a>
+            <a href="contact.html" class="block py-2 nav-link">Contato</a>
+            <a href="delivery.html" class="block py-2 nav-link">Delivery</a>
+            <a href="blog.html" class="block py-2 nav-link">Blog</a>
+            <a href="faq.html" class="block py-2 nav-link">FAQ</a>
+            <a href="cart.html" class="block py-2 nav-link cart-icon-mobile">Carrinho</a>
+            <div class="block py-2 auth-links">
+                <!-- Conteúdo será preenchido pelo auth.js -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 py-8 min-h-screen">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Nosso Cardápio Completo</h1>
+
+        <!-- Filtros -->
+        <div class="flex flex-wrap gap-2 mb-8 justify-center">
+            <button class="category-filter active px-4 py-2 rounded-full border text-sm font-medium transition" data-category="all">Todos</button>
+            <button class="category-filter px-4 py-2 rounded-full border text-sm font-medium transition" data-category="pizza">Pizzas</button>
+            <button class="category-filter px-4 py-2 rounded-full border text-sm font-medium transition" data-category="burger">Hambúrgueres</button>
+            <button class="category-filter px-4 py-2 rounded-full border text-sm font-medium transition" data-category="pasta">Massas</button>
+            <button class="category-filter px-4 py-2 rounded-full border text-sm font-medium transition" data-category="salad">Saladas</button>
+            <button class="category-filter px-4 py-2 rounded-full border text-sm font-medium transition" data-category="dessert">Sobremesas</button>
+            <button class="category-filter px-4 py-2 rounded-full border text-sm font-medium transition" data-category="drink">Bebidas</button>
+        </div>
+
+        <!-- Menu Items -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="menu-items">
+            <!-- Pizza Margherita -->
+            <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="pizza">
+                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=781&q=80" alt="Pizza Margherita" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-gray-800">Pizza Margherita</h3>
+                        <span class="text-orange-500 font-bold">R$ 45,90</span>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm">Massa fina, molho de tomate caseiro, mussarela fresca, manjericão e azeite de oliva.</p>
+                    <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="1" data-name="Pizza Margherita" data-price="45.90">
+                        <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hambúrguer Gourmet -->
+            <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="burger">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Hambúrguer Gourmet" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-gray-800">Hambúrguer Gourmet</h3>
+                        <span class="text-orange-500 font-bold">R$ 32,50</span>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm">Pão brioche, carne angus 180g, queijo cheddar, bacon crocante e molho especial.</p>
+                    <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="2" data-name="Hambúrguer Gourmet" data-price="32.50">
+                        <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Salada Caesar -->
+            <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="salad">
+                <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1527&q=80" alt="Salada Caesar" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-gray-800">Salada Caesar</h3>
+                        <span class="text-orange-500 font-bold">R$ 28,90</span>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm">Alface romana, croutons, frango grelhado, parmesão e molho caesar caseiro.</p>
+                    <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="3" data-name="Salada Caesar" data-price="28.90">
+                        <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pasta Carbonara -->
+            <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="pasta">
+                <img src="https://images.unsplash.com/photo-1612874742237-6526221588e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Pasta Carbonara" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-gray-800">Pasta Carbonara</h3>
+                        <span class="text-orange-500 font-bold">R$ 36,90</span>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm">Espaguete al dente, pancetta crocante, ovo, parmesão e pimenta preta.</p>
+                    <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="4" data-name="Pasta Carbonara" data-price="36.90">
+                        <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pizza Calabresa -->
+            <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="pizza">
+                <img src="https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Pizza Calabresa" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-gray-800">Pizza Calabresa</h3>
+                        <span class="text-orange-500 font-bold">R$ 42,90</span>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm">Massa crocante, molho de tomate, mussarela, calabresa fatiada e cebola.</p>
+                    <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="5" data-name="Pizza Calabresa" data-price="42.90">
+                        <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hambúrguer Vegano -->
+            <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="burger">
+                <img src="https://images.unsplash.com/photo-1556904689-1a7154191bcf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Hambúrguer Vegano" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-gray-800">Hambúrguer Vegano</h3>
+                        <span class="text-orange-500 font-bold">R$ 28,90</span>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm">Pão integral, hambúrguer de grão-de-bico, alface, tomate, cebola roxa e molho de tahine.</p>
+                    <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="6" data-name="Hambúrguer Vegano" data-price="28.90">
+                        <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Brownie com Sorvete -->
+            <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="dessert">
+                <img src="https://images.unsplash.com/photo-1564355808539-22fda35bed7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" alt="Brownie com Sorvete" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-gray-800">Brownie com Sorvete</h3>
+                        <span class="text-orange-500 font-bold">R$ 18,90</span>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm">Brownie quente de chocolate com nozes, sorvete de baunilha e calda de chocolate.</p>
+                    <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="7" data-name="Brownie com Sorvete" data-price="18.90">
+                        <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Suco Natural -->
+            <div class="food-card menu-item bg-white rounded-lg overflow-hidden shadow-md" data-category="drink">
+                <img src="https://images.unsplash.com/photo-1546171753-6526221588e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1487&q=80" alt="Suco Natural" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-gray-800">Suco Natural</h3>
+                        <span class="text-orange-500 font-bold">R$ 12,90</span>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm">Suco natural de laranja, abacaxi, morango ou maracujá. Sem adição de açúcar.</p>
+                    <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="8" data-name="Suco Natural" data-price="12.90">
+                        <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-white pt-12 pb-8 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between gap-8">
+                <div class="mb-6 md:mb-0 md:w-1/3">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-utensils text-2xl text-orange-500 mr-2"></i>
+                        <h2 class="text-2xl font-bold">Delícia <span class="text-orange-500">Express</span></h2>
+                    </div>
+                    <p class="text-gray-400 mb-4">Sabor e qualidade entregues na sua porta com rapidez e excelência.</p>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 md:w-2/3">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 uppercase tracking-wider text-gray-300">Links Rápidos</h3>
+                        <ul class="space-y-2">
+                            <li><a href="index.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Início</a></li>
+                            <li><a href="menu.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Cardápio</a></li>
+                            <li><a href="about.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Sobre Nós</a></li>
+                            <li><a href="contact.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Contato</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-10 pt-6 text-center text-gray-500 text-sm">
+                <p> 2024 Delícia Express. Todos os direitos reservados. Desenvolvido com <i class="fas fa-heart text-red-500"></i>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/navigation-fix.js"></script>
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil - Delícia Express</title>
+    <link rel="stylesheet" href="./css/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <!-- Cabeçalho/Navegação -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center cursor-pointer nav-link-logo">
+                <i class="fas fa-utensils text-2xl text-orange-500 mr-2"></i>
+                <h1 class="text-2xl font-bold text-gray-800">Delícia <span class="text-orange-500">Express</span></h1>
+            </div>
+
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="menu.html" class="nav-link">Cardápio</a>
+                <a href="about.html" class="nav-link">Sobre Nós</a>
+                <a href="contact.html" class="nav-link">Contato</a>
+                <a href="delivery.html" class="nav-link">Delivery</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <div class="auth-links">
+                    <!-- Conteúdo será preenchido pelo auth.js -->
+                </div>
+                <div class="relative">
+                    <a href="cart.html" class="nav-link cart-icon p-2 rounded-full hover:bg-gray-100">
+                        <i class="fas fa-shopping-cart text-xl text-gray-700"></i>
+                        <span class="cart-badge hidden">0</span>
+                    </a>
+                </div>
+                <button class="md:hidden text-gray-700 p-2 rounded hover:bg-gray-100" id="mobile-menu-button" aria-label="Abrir menu">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div class="md:hidden hidden bg-white py-2 px-4 shadow-lg border-t border-gray-200" id="mobile-menu">
+            <a href="index.html" class="block py-2 nav-link">Início</a>
+            <a href="menu.html" class="block py-2 nav-link">Cardápio</a>
+            <a href="about.html" class="block py-2 nav-link">Sobre Nós</a>
+            <a href="contact.html" class="block py-2 nav-link">Contato</a>
+            <a href="delivery.html" class="block py-2 nav-link">Delivery</a>
+            <a href="blog.html" class="block py-2 nav-link">Blog</a>
+            <a href="faq.html" class="block py-2 nav-link">FAQ</a>
+            <a href="cart.html" class="block py-2 nav-link cart-icon-mobile">Carrinho</a>
+            <div class="block py-2 auth-links">
+                <!-- Conteúdo será preenchido pelo auth.js -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 py-8 min-h-screen">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Meu Perfil</h1>
+            
+            <!-- Abas de navegação -->
+            <div class="mb-8 border-b border-gray-200">
+                <div class="flex flex-wrap -mb-px">
+                    <button class="profile-tab active mr-2 inline-block p-4 border-b-2 border-orange-500 rounded-t-lg" data-tab="personal-info">
+                        <i class="fas fa-user-circle mr-2"></i>Dados Pessoais
+                    </button>
+                    <button class="profile-tab mr-2 inline-block p-4 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 rounded-t-lg" data-tab="orders">
+                        <i class="fas fa-clipboard-list mr-2"></i>Meus Pedidos
+                    </button>
+                    <button class="profile-tab mr-2 inline-block p-4 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 rounded-t-lg" data-tab="addresses">
+                        <i class="fas fa-map-marker-alt mr-2"></i>Endereços
+                    </button>
+                    <button class="profile-tab mr-2 inline-block p-4 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 rounded-t-lg" data-tab="preferences">
+                        <i class="fas fa-sliders-h mr-2"></i>Preferências
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Conteúdo das abas -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <!-- Aba de Dados Pessoais -->
+                <div class="profile-tab-content active" id="personal-info-content">
+                    <form id="profile-form" class="space-y-6">
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <div class="md:w-1/2">
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500" value="Usuário Teste">
+                            </div>
+                            <div class="md:w-1/2">
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500" value="usuario@exemplo.com" readonly>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <div class="md:w-1/2">
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Telefone</label>
+                                <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500" value="(11) 98765-4321">
+                            </div>
+                            <div class="md:w-1/2">
+                                <label for="birthdate" class="block text-sm font-medium text-gray-700 mb-1">Data de Nascimento</label>
+                                <input type="date" id="birthdate" name="birthdate" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500" value="1990-01-01">
+                            </div>
+                        </div>
+                        
+                        <div class="border-t pt-6 mt-6">
+                            <h3 class="text-lg font-semibold mb-4">Alterar Senha</h3>
+                            <div class="flex flex-col md:flex-row gap-6">
+                                <div class="md:w-1/3">
+                                    <label for="current-password" class="block text-sm font-medium text-gray-700 mb-1">Senha Atual</label>
+                                    <input type="password" id="current-password" name="current-password" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500">
+                                </div>
+                                <div class="md:w-1/3">
+                                    <label for="new-password" class="block text-sm font-medium text-gray-700 mb-1">Nova Senha</label>
+                                    <input type="password" id="new-password" name="new-password" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500">
+                                </div>
+                                <div class="md:w-1/3">
+                                    <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirmar Senha</label>
+                                    <input type="password" id="confirm-password" name="confirm-password" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end">
+                            <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-6 rounded-md transition duration-300">
+                                Salvar Alterações
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Aba de Pedidos -->
+                <div class="profile-tab-content hidden" id="orders-content">
+                    <div class="space-y-6">
+                        <!-- Pedido 1 -->
+                        <div class="border rounded-lg overflow-hidden">
+                            <div class="bg-gray-50 p-4 flex justify-between items-center">
+                                <div>
+                                    <p class="text-sm text-gray-500">Pedido #12345</p>
+                                    <p class="font-medium">15/05/2024 - 19:30</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Entregue</span>
+                                    <p class="font-bold mt-1">R$ 78,40</p>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="space-y-2">
+                                    <div class="flex justify-between">
+                                        <span>1x Pizza Margherita</span>
+                                        <span>R$ 45,90</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>1x Hambúrguer Gourmet</span>
+                                        <span>R$ 32,50</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 pt-4 border-t flex justify-end">
+                                    <button class="text-orange-500 hover:text-orange-700 font-medium">Ver Detalhes</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pedido 2 -->
+                        <div class="border rounded-lg overflow-hidden">
+                            <div class="bg-gray-50 p-4 flex justify-between items-center">
+                                <div>
+                                    <p class="text-sm text-gray-500">Pedido #12346</p>
+                                    <p class="font-medium">10/05/2024 - 20:15</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Entregue</span>
+                                    <p class="font-bold mt-1">R$ 57,80</p>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="space-y-2">
+                                    <div class="flex justify-between">
+                                        <span>2x Salada Caesar</span>
+                                        <span>R$ 57,80</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 pt-4 border-t flex justify-end">
+                                    <button class="text-orange-500 hover:text-orange-700 font-medium">Ver Detalhes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Aba de Endereços -->
+                <div class="profile-tab-content hidden" id="addresses-content">
+                    <div class="mb-6 flex justify-end">
+                        <button id="add-address-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-md transition duration-300 text-sm flex items-center">
+                            <i class="fas fa-plus mr-2"></i> Adicionar Endereço
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Endereço 1 -->
+                        <div class="border rounded-lg p-4 relative">
+                            <div class="absolute top-4 right-4 flex space-x-2">
+                                <button class="text-gray-500 hover:text-gray-700">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </button>
+                                <button class="text-red-500 hover:text-red-700">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                            <div class="mb-2 flex items-center">
+                                <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded mr-2">Principal</span>
+                                <h3 class="font-semibold">Casa</h3>
+                            </div>
+                            <p class="text-gray-600">Rua das Flores, 123</p>
+                            <p class="text-gray-600">Apto 101</p>
+                            <p class="text-gray-600">São Paulo, SP - 01234-567</p>
+                        </div>
+                        
+                        <!-- Endereço 2 -->
+                        <div class="border rounded-lg p-4 relative">
+                            <div class="absolute top-4 right-4 flex space-x-2">
+                                <button class="text-gray-500 hover:text-gray-700">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </button>
+                                <button class="text-red-500 hover:text-red-700">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                            <div class="mb-2">
+                                <h3 class="font-semibold">Trabalho</h3>
+                            </div>
+                            <p class="text-gray-600">Av. Paulista, 1000</p>
+                            <p class="text-gray-600">10º andar</p>
+                            <p class="text-gray-600">São Paulo, SP - 01310-100</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Aba de Preferências -->
+                <div class="profile-tab-content hidden" id="preferences-content">
+                    <form class="space-y-6">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4">Preferências de Comunicação</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center">
+                                    <input id="email-promo" name="email-promo" type="checkbox" class="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded" checked>
+                                    <label for="email-promo" class="ml-2 block text-sm text-gray-700">Receber ofertas e promoções por email</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="sms-promo" name="sms-promo" type="checkbox" class="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded" checked>
+                                    <label for="sms-promo" class="ml-2 block text-sm text-gray-700">Receber ofertas e promoções por SMS</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="order-updates" name="order-updates" type="checkbox" class="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded" checked>
+                                    <label for="order-updates" class="ml-2 block text-sm text-gray-700">Receber atualizações de pedidos por email</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4">Preferências Alimentares</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center">
+                                    <input id="vegetarian" name="vegetarian" type="checkbox" class="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded">
+                                    <label for="vegetarian" class="ml-2 block text-sm text-gray-700">Vegetariano</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="vegan" name="vegan" type="checkbox" class="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded">
+                                    <label for="vegan" class="ml-2 block text-sm text-gray-700">Vegano</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="gluten-free" name="gluten-free" type="checkbox" class="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded">
+                                    <label for="gluten-free" class="ml-2 block text-sm text-gray-700">Sem Glúten</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="lactose-free" name="lactose-free" type="checkbox" class="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded">
+                                    <label for="lactose-free" class="ml-2 block text-sm text-gray-700">Sem Lactose</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end">
+                            <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-6 rounded-md transition duration-300">
+                                Salvar Preferências
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-white pt-12 pb-8 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between gap-8">
+                <div class="mb-6 md:mb-0 md:w-1/3">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-utensils text-2xl text-orange-500 mr-2"></i>
+                        <h2 class="text-2xl font-bold">Delícia <span class="text-orange-500">Express</span></h2>
+                    </div>
+                    <p class="text-gray-400 mb-4">Sabor e qualidade entregues na sua porta com rapidez e excelência.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 md:w-2/3">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 uppercase tracking-wider text-gray-300">Links Rápidos</h3>
+                        <ul class="space-y-2">
+                            <li><a href="index.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Início</a></li>
+                            <li><a href="menu.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Cardápio</a></li>
+                            <li><a href="about.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Sobre Nós</a></li>
+                            <li><a href="contact.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 uppercase tracking-wider text-gray-300">Suporte</h3>
+                        <ul class="space-y-2">
+                            <li><a href="faq.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">FAQ</a></li>
+                            <li><a href="delivery.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Política de Entrega</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300 text-sm">Termos de Uso</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300 text-sm">Política de Privacidade</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 uppercase tracking-wider text-gray-300">Contato</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-orange-500 mt-1 mr-2"></i>
+                                <span class="text-gray-400 text-sm">Av. Exemplo, 123<br>São Paulo, SP</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-phone text-orange-500 mr-2"></i>
+                                <span class="text-gray-400 text-sm">(11) 5555-5555</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope text-orange-500 mr-2"></i>
+                                <span class="text-gray-400 text-sm">contato@deliciaexpress.com</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-10 pt-6 text-center text-gray-500 text-sm">
+                <p> 2024 Delícia Express. Todos os direitos reservados. Desenvolvido com <i class="fas fa-heart text-red-500"></i>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/navigation-fix.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar se o usuário está logado
+            if (!checkAuth(true, false)) {
+                return; // A função checkAuth já redirecionará se necessário
+            }
+            
+            // Preencher dados do usuário
+            const currentUser = getCurrentUser();
+            if (currentUser) {
+                document.getElementById('name').value = currentUser.name || 'Usuário Teste';
+                document.getElementById('email').value = currentUser.email || 'usuario@exemplo.com';
+            }
+            
+            // Gerenciar abas
+            const tabs = document.querySelectorAll('.profile-tab');
+            const tabContents = document.querySelectorAll('.profile-tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remover classe ativa de todas as abas
+                    tabs.forEach(t => t.classList.remove('active', 'border-orange-500', 'text-orange-500'));
+                    tabs.forEach(t => t.classList.add('text-gray-500', 'border-transparent'));
+                    
+                    // Adicionar classe ativa à aba clicada
+                    this.classList.add('active', 'border-orange-500', 'text-orange-500');
+                    this.classList.remove('text-gray-500', 'border-transparent');
+                    
+                    // Esconder todos os conteúdos
+                    tabContents.forEach(content => content.classList.add('hidden'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Mostrar o conteúdo correspondente
+                    const tabId = this.getAttribute('data-tab');
+                    const activeContent = document.getElementById(`${tabId}-content`);
+                    activeContent.classList.remove('hidden');
+                    activeContent.classList.add('active');
+                });
+            });
+            
+            // Lidar com o formulário de perfil
+            const profileForm = document.getElementById('profile-form');
+            if (profileForm) {
+                profileForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    
+                    // Simular salvamento dos dados
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const phone = document.getElementById('phone').value;
+                    
+                    // Atualizar dados do usuário no localStorage
+                    const currentUser = getCurrentUser();
+                    if (currentUser) {
+                        currentUser.name = name;
+                        currentUser.phone = phone;
+                        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    }
+                    
+                    // Mostrar notificação de sucesso
+                    showNotification('Perfil atualizado com sucesso!', 'success');
+                    
+                    // Atualizar a interface do usuário
+                    updateAuthUI();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

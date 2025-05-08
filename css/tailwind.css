@@ -1,0 +1,38 @@
+/* Tailwind base */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cores personalizadas */
+:root {
+  --primary: #F97316;
+  --primary-dark: #EA580C;
+  --secondary: #4B5563;
+  --light: #F9FAFB;
+  --dark: #1F2937;
+}
+
+/* Utilidades customizadas */
+.btn-primary {
+  @apply bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded transition duration-300;
+}
+
+.btn-secondary {
+  @apply bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300;
+}
+
+.card {
+  @apply bg-white rounded-lg overflow-hidden shadow-md;
+}
+
+.input-field {
+  @apply w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500;
+}
+
+.section-title {
+  @apply text-3xl font-bold text-gray-800 mb-8 text-center;
+}
+
+.container-custom {
+  @apply container mx-auto px-4 py-8;
+}

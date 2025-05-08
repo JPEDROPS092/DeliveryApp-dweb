@@ -1,0 +1,90 @@
+/* Transições suaves para troca de páginas */
+.page {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilo personalizado para o banner */
+.hero-banner {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+    background-size: cover;
+    background-position: center;
+    height: 50vh; /* Adjusted height */
+    min-height: 400px;
+}
+
+/* Estilo para os cards de comida */
+.food-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.food-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilo para o carrinho flutuante */
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 11px; /* Slightly smaller */
+    font-weight: bold;
+    background-color: #EF4444; /* Red-600 */
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white; /* Add border */
+}
+
+/* Estilo para links de navegação ativos */
+header .nav-link.active, #mobile-menu .nav-link.active {
+    color: #F97316; /* Orange-500 */
+    font-weight: bold;
+}
+header .nav-link.active {
+    border-bottom: 2px solid #F97316;
+    padding-bottom: 2px;
+}
+header .nav-link, #mobile-menu .nav-link {
+    padding-bottom: 4px; /* Ensure space for border */
+    transition: color 0.3s ease, border-color 0.3s ease;
+    color: #4B5563; /* Gray-600 */
+    border-bottom: 2px solid transparent;
+}
+header .nav-link:hover, #mobile-menu .nav-link:hover {
+    color: #F97316; /* Orange-500 */
+}
+/* Don't apply bottom border to mobile links */
+#mobile-menu .nav-link {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* Estilo para filtros de categoria ativos */
+.category-filter.active {
+    background-color: #F97316; /* Orange-500 */
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.category-filter {
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós - Delícia Express</title>
+    <link rel="stylesheet" href="./css/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <!-- Cabeçalho/Navegação -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center cursor-pointer nav-link-logo">
+                <i class="fas fa-utensils text-2xl text-orange-500 mr-2"></i>
+                <h1 class="text-2xl font-bold text-gray-800">Delícia <span class="text-orange-500">Express</span></h1>
+            </div>
+
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="menu.html" class="nav-link">Cardápio</a>
+                <a href="about.html" class="nav-link active">Sobre Nós</a>
+                <a href="contact.html" class="nav-link">Contato</a>
+                <a href="delivery.html" class="nav-link">Delivery</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <div class="auth-links">
+                    <!-- Conteúdo será preenchido pelo auth.js -->
+                </div>
+                <div class="relative">
+                    <a href="cart.html" class="nav-link cart-icon p-2 rounded-full hover:bg-gray-100">
+                        <i class="fas fa-shopping-cart text-xl text-gray-700"></i>
+                        <span class="cart-badge hidden">0</span>
+                    </a>
+                </div>
+                <button class="md:hidden text-gray-700 p-2 rounded hover:bg-gray-100" id="mobile-menu-button" aria-label="Abrir menu">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div class="md:hidden hidden bg-white py-2 px-4 shadow-lg border-t border-gray-200" id="mobile-menu">
+            <a href="index.html" class="block py-2 nav-link">Início</a>
+            <a href="menu.html" class="block py-2 nav-link">Cardápio</a>
+            <a href="about.html" class="block py-2 nav-link active">Sobre Nós</a>
+            <a href="contact.html" class="block py-2 nav-link">Contato</a>
+            <a href="delivery.html" class="block py-2 nav-link">Delivery</a>
+            <a href="blog.html" class="block py-2 nav-link">Blog</a>
+            <a href="faq.html" class="block py-2 nav-link">FAQ</a>
+            <a href="cart.html" class="block py-2 nav-link cart-icon-mobile">Carrinho</a>
+            <div class="block py-2 auth-links">
+                <!-- Conteúdo será preenchido pelo auth.js -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 py-8 min-h-screen">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Nossa História</h1>
+        <div class="flex flex-col md:flex-row gap-12 mb-12 items-center">
+            <div class="md:w-1/2">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Paixão por Sabor, Entregue a Você</h2>
+                <p class="text-gray-700 mb-4">Fundado em 2018 na encantadora cidade de Manaus, o Delícia Express nasceu da paixão de dois irmãos, Carlos e Ana Mendes, que compartilhavam um sonho: transformar a experiência de delivery de comida em algo verdadeiramente especial.</p>
+                <p class="text-gray-700 mb-4">Com formação em gastronomia internacional e experiência em restaurantes renomados, os irmãos Mendes perceberam que havia uma lacuna no mercado para entregas de comida que realmente preservassem a qualidade, apresentação e experiência de um restaurante de alto padrão.</p>
+                <p class="text-gray-700 mb-4">A jornada começou em uma pequena cozinha no bairro Vila Madalena, com um cardápio enxuto e uma equipe dedicada de apenas cinco pessoas. O que diferenciava o Delícia Express desde o início era o compromisso inabalável com ingredientes frescos e técnicas culinárias refinadas, mesmo para pratos que precisavam ser transportados.</p>
+            </div>
+            <div class="md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Nossa História" class="rounded-lg shadow-md w-full h-96 object-cover">
+            </div>
+        </div>
+
+        <div class="bg-orange-50 rounded-lg p-8 mb-12 border border-orange-100">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Nossa Missão e Valores</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="text-orange-500 text-4xl mb-4 flex justify-center">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3 text-center">Paixão</h3>
+                    <p class="text-gray-600 text-center">Amamos o que fazemos e isso se reflete em cada prato que preparamos, em cada detalhe da experiência que oferecemos.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="text-orange-500 text-4xl mb-4 flex justify-center">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3 text-center">Frescor</h3>
+                    <p class="text-gray-600 text-center">Comprometidos com ingredientes frescos e de qualidade, selecionados diariamente para garantir o melhor sabor em cada refeição.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="text-orange-500 text-4xl mb-4 flex justify-center">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3 text-center">Satisfação</h3>
+                    <p class="text-gray-600 text-center">A felicidade dos nossos clientes é nossa prioridade. Trabalhamos incansavelmente para superar expectativas em cada entrega.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-100 rounded-lg p-8 mt-12 border border-gray-200">
+            <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Conheça Nossos Chefs</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Chef 1 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="images/cozinheiro.jpg" alt="Chef Carlos Mendes" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Carlos Mendes</h3>
+                        <p class="text-orange-500 font-medium mb-3">Chef Executivo & Co-fundador</p>
+                        <p class="text-gray-600 text-sm">Formado em gastronomia pela Le Cordon Bleu de Paris, Carlos traz técnicas refinadas e paixão por sabores autênticos para nossa cozinha.</p>
+                    </div>
+                </div>
+
+                <!-- Chef 2 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="images/c2.jpg" alt="Chef Ana Mendes" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Ana Mendes</h3>
+                        <p class="text-orange-500 font-medium mb-3">Chef de Confeitaria & Co-fundadora</p>
+                        <p class="text-gray-600 text-sm">Especialista em doces e sobremesas, Ana estudou confeitaria na Itália e traz um toque de criatividade e sofisticação às nossas sobremesas.</p>
+                    </div>
+                </div>
+
+                <!-- Chef 3 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="images/c3.jpg" alt="Chef Roberto Almeida" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Roberto Almeida</h3>
+                        <p class="text-orange-500 font-medium mb-3">Chef de Cozinha Quente</p>
+                        <p class="text-gray-600 text-sm">Com 15 anos de experiência em restaurantes estrelados, Roberto é especialista em grelhados e carnes, trazendo sabor e técnica para nossos pratos principais.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-white pt-12 pb-8 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between gap-8">
+                <div class="mb-6 md:mb-0 md:w-1/3">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-utensils text-2xl text-orange-500 mr-2"></i>
+                        <h2 class="text-2xl font-bold">Delícia <span class="text-orange-500">Express</span></h2>
+                    </div>
+                    <p class="text-gray-400 mb-4">Sabor e qualidade entregues na sua porta com rapidez e excelência.</p>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 md:w-2/3">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 uppercase tracking-wider text-gray-300">Links Rápidos</h3>
+                        <ul class="space-y-2">
+                            <li><a href="index.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Início</a></li>
+                            <li><a href="menu.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Cardápio</a></li>
+                            <li><a href="about.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Sobre Nós</a></li>
+                            <li><a href="contact.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Contato</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-10 pt-6 text-center text-gray-500 text-sm">
+                <p> 2024 Delícia Express. Todos os direitos reservados. Desenvolvido com <i class="fas fa-heart text-red-500"></i>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/navigation-fix.js"></script>
+</body>
+</html>

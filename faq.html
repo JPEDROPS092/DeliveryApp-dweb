@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perguntas Frequentes - Delícia Express</title>
+    <link rel="stylesheet" href="./css/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <!-- Cabeçalho/Navegação -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center cursor-pointer nav-link-logo">
+                <i class="fas fa-utensils text-2xl text-orange-500 mr-2"></i>
+                <h1 class="text-2xl font-bold text-gray-800">Delícia <span class="text-orange-500">Express</span></h1>
+            </div>
+
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="menu.html" class="nav-link">Cardápio</a>
+                <a href="about.html" class="nav-link">Sobre Nós</a>
+                <a href="contact.html" class="nav-link">Contato</a>
+                <a href="delivery.html" class="nav-link">Delivery</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="faq.html" class="nav-link active">FAQ</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <div class="auth-links">
+                    <!-- Conteúdo será preenchido pelo auth.js -->
+                </div>
+                <div class="relative">
+                    <a href="cart.html" class="nav-link cart-icon p-2 rounded-full hover:bg-gray-100">
+                        <i class="fas fa-shopping-cart text-xl text-gray-700"></i>
+                        <span class="cart-badge hidden">0</span>
+                    </a>
+                </div>
+                <button class="md:hidden text-gray-700 p-2 rounded hover:bg-gray-100" id="mobile-menu-button" aria-label="Abrir menu">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div class="md:hidden hidden bg-white py-2 px-4 shadow-lg border-t border-gray-200" id="mobile-menu">
+            <a href="index.html" class="block py-2 nav-link">Início</a>
+            <a href="menu.html" class="block py-2 nav-link">Cardápio</a>
+            <a href="about.html" class="block py-2 nav-link">Sobre Nós</a>
+            <a href="contact.html" class="block py-2 nav-link">Contato</a>
+            <a href="delivery.html" class="block py-2 nav-link">Delivery</a>
+            <a href="blog.html" class="block py-2 nav-link">Blog</a>
+            <a href="faq.html" class="block py-2 nav-link active">FAQ</a>
+            <a href="cart.html" class="block py-2 nav-link cart-icon-mobile">Carrinho</a>
+            <div class="block py-2 auth-links">
+                <!-- Conteúdo será preenchido pelo auth.js -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 py-8 min-h-screen">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Perguntas Frequentes</h1>
+        
+        <!-- Banner FAQ -->
+        <div class="bg-gradient-to-r from-orange-100 to-orange-200 rounded-lg p-8 mb-12 shadow-md">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-2/3 mb-6 md:mb-0">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Encontre respostas para suas dúvidas</h2>
+                    <p class="text-gray-700 mb-4">Reunimos as perguntas mais frequentes dos nossos clientes. Se você não encontrar a resposta que procura, entre em contato conosco.</p>
+                    <a href="contact.html" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-6 rounded-lg transition duration-300 mt-2">
+                        Entre em contato
+                    </a>
+                </div>
+                <div class="md:w-1/3 flex justify-center">
+                    <div class="w-40 h-40 rounded-full bg-white flex items-center justify-center shadow-lg">
+                        <i class="fas fa-question-circle text-orange-500 text-6xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Categorias de FAQ -->
+        <div class="flex flex-wrap gap-2 mb-8 justify-center">
+            <button class="category-filter active px-4 py-2 rounded-full border text-sm font-medium transition" data-category="all">Todas as Perguntas</button>
+            <button class="category-filter px-4 py-2 rounded-full border text-sm font-medium transition" data-category="pedidos">Pedidos</button>
+            <button class="category-filter px-4 py-2 rounded-full border text-sm font-medium transition" data-category="delivery">Delivery</button>
+            <button class="category-filter px-4 py-2 rounded-full border text-sm font-medium transition" data-category="pagamento">Pagamento</button>
+            <button class="category-filter px-4 py-2 rounded-full border text-sm font-medium transition" data-category="cardapio">Cardápio</button>
+            <button class="category-filter px-4 py-2 rounded-full border text-sm font-medium transition" data-category="outros">Outros</button>
+        </div>
+        
+        <!-- FAQ Accordion -->
+        <div class="max-w-3xl mx-auto mb-12">
+            <!-- Pedidos -->
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4 pl-4 border-l-4 border-orange-500">Pedidos</h2>
+                
+                <!-- Questão 1 -->
+                <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden" data-category="pedidos">
+                    <button class="faq-question w-full text-left p-6 focus:outline-none">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-semibold text-gray-800">Como faço para realizar um pedido?</h3>
+                            <i class="fas fa-chevron-down text-orange-500 transition-transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-answer bg-gray-50 px-6 py-4 border-t hidden">
+                        <p class="text-gray-700">Você pode realizar seu pedido de várias maneiras:</p>
+                        <ul class="list-disc pl-5 mt-2 text-gray-700 space-y-1">
+                            <li>Diretamente pelo nosso site, na seção "Cardápio"</li>
+                            <li>Pelo telefone (11) 99999-8888</li>
+                            <li>Pelo WhatsApp (11) 99999-7777</li>
+                            <li>Pelos aplicativos de delivery parceiros (iFood, Rappi, UberEats)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Questão 2 -->
+                <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden" data-category="pedidos">
+                    <button class="faq-question w-full text-left p-6 focus:outline-none">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-semibold text-gray-800">Como posso acompanhar meu pedido?</h3>
+                            <i class="fas fa-chevron-down text-orange-500 transition-transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-answer bg-gray-50 px-6 py-4 border-t hidden">
+                        <p class="text-gray-700">Após confirmar seu pedido, você receberá um código de rastreamento por SMS ou e-mail. Com este código, você pode acompanhar o status do seu pedido em tempo real através do nosso site, na seção "Rastrear Pedido". Também enviamos notificações sobre as principais etapas: confirmação, preparação, saída para entrega e entrega concluída.</p>
+                    </div>
+                </div>
+                
+                <!-- Questão 3 -->
+                <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden" data-category="pedidos">
+                    <button class="faq-question w-full text-left p-6 focus:outline-none">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-semibold text-gray-800">Posso cancelar ou alterar meu pedido?</h3>
+                            <i class="fas fa-chevron-down text-orange-500 transition-transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-answer bg-gray-50 px-6 py-4 border-t hidden">
+                        <p class="text-gray-700">Você pode cancelar ou alterar seu pedido em até 5 minutos após a confirmação, entrando em contato com o nosso atendimento. Após este período, o pedido já entra em preparação e não é possível realizar alterações ou cancelamentos.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Delivery -->
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4 pl-4 border-l-4 border-orange-500">Delivery</h2>
+                
+                <!-- Questão 4 -->
+                <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden" data-category="delivery">
+                    <button class="faq-question w-full text-left p-6 focus:outline-none">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-semibold text-gray-800">Quais são as áreas de entrega?</h3>
+                            <i class="fas fa-chevron-down text-orange-500 transition-transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-answer bg-gray-50 px-6 py-4 border-t hidden">
+                        <p class="text-gray-700">Entregamos em toda a região central de São Paulo e bairros adjacentes. A taxa de entrega varia conforme a distância. Para consultar a disponibilidade para seu endereço e o valor da taxa, acesse a página de "Delivery" ou informe seu CEP na finalização do pedido.</p>
+                    </div>
+                </div>
+                
+                <!-- Questão 5 -->
+                <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden" data-category="delivery">
+                    <button class="faq-question w-full text-left p-6 focus:outline-none">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-semibold text-gray-800">Qual é o tempo médio de entrega?</h3>
+                            <i class="fas fa-chevron-down text-orange-500 transition-transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-answer bg-gray-50 px-6 py-4 border-t hidden">
+                        <p class="text-gray-700">O tempo médio de entrega varia entre 30 e 45 minutos, dependendo da região e do trânsito. Nos horários de maior movimento (almoço e jantar), o tempo pode ser um pouco maior. Sempre oferecemos uma estimativa precisa no momento da confirmação do pedido.</p>
+                    </div>
+                </div>
+                
+                <!-- Questão 6 -->
+                <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden" data-category="delivery">
+                    <button class="faq-question w-full text-left p-6 focus:outline-none">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-semibold text-gray-800">O que acontece se meu pedido atrasar?</h3>
+                            <i class="fas fa-chevron-down text-orange-500 transition-transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-answer bg-gray-50 px-6 py-4 border-t hidden">
+                        <p class="text-gray-700">Se o seu pedido ultrapassar 45 minutos do tempo estimado, você não paga a taxa de entrega. Em caso de atrasos superiores a 1 hora, oferecemos um cupom de desconto de 20% para o próximo pedido. Nossa prioridade é sua satisfação!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagamento -->
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4 pl-4 border-l-4 border-orange-500">Pagamento</h2>
+                
+                <!-- Questão 7 -->
+                <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden" data-category="pagamento">
+                    <button class="faq-question w-full text-left p-6 focus:outline-none">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-semibold text-gray-800">Quais formas de pagamento são aceitas?</h3>
+                            <i class="fas fa-chevron-down text-orange-500 transition-transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-answer bg-gray-50 px-6 py-4 border-t hidden">
+                        <p class="text-gray-700">Aceitamos as seguintes formas de pagamento:</p>
+                        <ul class="list-disc pl-5 mt-2 text-gray-700 space-y-1">
+                            <li>Cartões de crédito e débito (Visa, Mastercard, Elo, American Express)</li>
+                            <li>Pix</li>
+                            <li>Dinheiro (Informe na observação do pedido se precisará de troco)</li>
+                            <li>Vale-refeição (Alelo, Sodexo, VR, Ticket)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Questão 8 -->
+                <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden" data-category="pagamento">
+                    <button class="faq-question w-full text-left p-6 focus:outline-none">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-semibold text-gray-800">Como funciona o pagamento online?</h3>
+                            <i class="fas fa-chevron-down text-orange-500 transition-transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-answer bg-gray-50 px-6 py-4 border-t hidden">
+                        <p class="text-gray-700">Nosso sistema de pagamento online é 100% seguro. Utilizamos criptografia SSL para proteger todos os dados dos clientes. O pagamento é processado no momento da finalização do pedido e você receberá um comprovante por e-mail.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cardápio -->
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4 pl-4 border-l-4 border-orange-500">Cardápio</h2>
+                
+                <!-- Questão 9 -->
+                <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden" data-category="cardapio">
+                    <button class="faq-question w-full text-left p-6 focus:outline-none">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-semibold text-gray-800">Vocês têm opções vegetarianas/veganas?</h3>
+                            <i class="fas fa-chevron-down text-orange-500 transition-transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-answer bg-gray-50 px-6 py-4 border-t hidden">
+                        <p class="text-gray-700">Sim! Temos diversas opções vegetarianas e veganas no nosso cardápio. Todas estão devidamente identificadas com os ícones 🌱 (vegetariano) e 🌿 (vegano). Caso tenha alguma dúvida específica sobre os ingredientes, não hesite em perguntar ao nosso atendimento.</p>
+                    </div>
+                </div>
+                
+                <!-- Questão 10 -->
+                <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden" data-category="cardapio">
+                    <button class="faq-question w-full text-left p-6 focus:outline-none">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-semibold text-gray-800">Posso fazer modificações nos pratos?</h3>
+                            <i class="fas fa-chevron-down text-orange-500 transition-transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-answer bg-gray-50 px-6 py-4 border-t hidden">
+                        <p class="text-gray-700">Sim, permitimos pequenas modificações nos pratos (como remover algum ingrediente). Para pedidos mais personalizados ou necessidades dietéticas específicas, entre em contato conosco antes de fazer o pedido para verificarmos a possibilidade.</p>
+                    </div>
+                </div>
+                
+                <!-- Questão 11 -->
+                <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden" data-category="cardapio">
+                    <button class="faq-question w-full text-left p-6 focus:outline-none">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-semibold text-gray-800">Com que frequência o cardápio é atualizado?</h3>
+                            <i class="fas fa-chevron-down text-orange-500 transition-transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-answer bg-gray-50 px-6 py-4 border-t hidden">
+                        <p class="text-gray-700">Nosso cardápio principal é atualizado sazonalmente (4 vezes ao ano) para incluir ingredientes da estação e novidades gastronômicas. Além disso, temos pratos especiais que mudam semanalmente. Fique de olho nas nossas redes sociais para não perder nenhuma novidade!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Outros -->
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4 pl-4 border-l-4 border-orange-500">Outros</h2>
+                
+                <!-- Questão 12 -->
+                <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden" data-category="outros">
+                    <button class="faq-question w-full text-left p-6 focus:outline-none">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-semibold text-gray-800">Vocês têm restaurante físico?</h3>
+                            <i class="fas fa-chevron-down text-orange-500 transition-transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-answer bg-gray-50 px-6 py-4 border-t hidden">
+                        <p class="text-gray-700">Sim, temos um restaurante físico localizado na Rua das Delícias, 123, Vila Madalena - São Paulo. Funcionamos todos os dias, das 11h às 23h. Recomendamos reservas para jantares nos finais de semana.</p>
+                    </div>
+                </div>
+                
+                <!-- Questão 13 -->
+                <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden" data-category="outros">
+                    <button class="faq-question w-full text-left p-6 focus:outline-none">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-semibold text-gray-800">Vocês oferecem serviço de catering para eventos?</h3>
+                            <i class="fas fa-chevron-down text-orange-500 transition-transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-answer bg-gray-50 px-6 py-4 border-t hidden">
+                        <p class="text-gray-700">Sim, oferecemos serviço de catering para eventos corporativos, festas e celebrações especiais. Temos diferentes opções de cardápio que podem ser customizadas de acordo com suas necessidades. Entre em contato pelo e-mail eventos@deliciaexpress.com para mais informações e orçamentos.</p>
+                    </div>
+                </div>
+                
+                <!-- Questão 14 -->
+                <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden" data-category="outros">
+                    <button class="faq-question w-full text-left p-6 focus:outline-none">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-semibold text-gray-800">Como faço para trabalhar no Delícia Express?</h3>
+                            <i class="fas fa-chevron-down text-orange-500 transition-transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-answer bg-gray-50 px-6 py-4 border-t hidden">
+                        <p class="text-gray-700">Estamos sempre em busca de talentos! Para se candidatar a uma vaga, envie seu currículo para carreiras@deliciaexpress.com, indicando a área de interesse no assunto do e-mail. Também anunciamos vagas abertas em nossas redes sociais e no site, na seção "Trabalhe Conosco".</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Não encontrou? -->
+        <div class="bg-gray-100 rounded-lg p-8 mb-12 text-center">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Não encontrou o que procurava?</h2>
+            <p class="text-gray-700 mb-6 max-w-2xl mx-auto">Se você tem uma pergunta que não foi respondida aqui, entre em contato com nossa equipe de atendimento. Estamos à disposição para ajudar!</p>
+            <a href="contact.html" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transition duration-300 shadow-md inline-block">
+                Fale Conosco
+            </a>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-white pt-12 pb-8 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between gap-8">
+                <div class="mb-6 md:mb-0 md:w-1/3">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-utensils text-2xl text-orange-500 mr-2"></i>
+                        <h2 class="text-2xl font-bold">Delícia <span class="text-orange-500">Express</span></h2>
+                    </div>
+                    <p class="text-gray-400 mb-4">Sabor e qualidade entregues na sua porta com rapidez e excelência.</p>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 md:w-2/3">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 uppercase tracking-wider text-gray-300">Links Rápidos</h3>
+                        <ul class="space-y-2">
+                            <li><a href="index.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Início</a></li>
+                            <li><a href="menu.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Cardápio</a></li>
+                            <li><a href="about.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Sobre Nós</a></li>
+                            <li><a href="contact.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Contato</a></li>
+                            <li><a href="delivery.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Delivery</a></li>
+                            <li><a href="blog.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Blog</a></li>
+                            <li><a href="faq.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-10 pt-6 text-center text-gray-500 text-sm">
+                <p> 2024 Delícia Express. Todos os direitos reservados. Desenvolvido com <i class="fas fa-heart text-red-500"></i>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/navigation-fix.js"></script>
+    
+    <!-- Script Específico para FAQ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Accordion para as perguntas frequentes
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    // Alternar a visibilidade da resposta
+                    const answer = this.nextElementSibling;
+                    const icon = this.querySelector('.fa-chevron-down');
+                    
+                    answer.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+                    
+                    // Fechar outras respostas
+                    faqQuestions.forEach(otherQuestion => {
+                        if (otherQuestion !== question) {
+                            const otherAnswer = otherQuestion.nextElementSibling;
+                            const otherIcon = otherQuestion.querySelector('.fa-chevron-down');
+                            
+                            otherAnswer.classList.add('hidden');
+                            otherIcon.classList.remove('rotate-180');
+                        }
+                    });
+                });
+            });
+            
+            // Filtros de Categorias
+            const categoryFilters = document.querySelectorAll('.category-filter');
+            const faqItems = document.querySelectorAll('[data-category]');
+            
+            categoryFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    // Atualizar estado ativo dos filtros
+                    categoryFilters.forEach(f => f.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    faqItems.forEach(item => {
+                        const itemCategory = item.getAttribute('data-category');
+                        
+                        if (category === 'all' || itemCategory === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

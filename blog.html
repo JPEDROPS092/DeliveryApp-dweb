@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Gastronômico - Delícia Express</title>
+    <link rel="stylesheet" href="./css/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+    <style>
+        .blog-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .category-filter {
+            transition: all 0.3s ease;
+        }
+        .category-filter.active {
+            background-color: #f97316;
+            color: white;
+            border-color: #f97316;
+        }
+        .category-filter:hover:not(.active) {
+            background-color: #fff7ed;
+            border-color: #f97316;
+            color: #f97316;
+        }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-clamp: 3; /* Propriedade padrão para compatibilidade */
+        }
+        .pagination-link {
+            transition: all 0.3s ease;
+        }
+        .pagination-link:hover:not(.active) {
+            background-color: #f3f4f6;
+        }
+        .pagination-link.active {
+            background-color: #f97316;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <!-- Cabeçalho/Navegação -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center cursor-pointer nav-link-logo">
+                <i class="fas fa-utensils text-2xl text-orange-500 mr-2"></i>
+                <h1 class="text-2xl font-bold text-gray-800">Delícia <span class="text-orange-500">Express</span></h1>
+            </div>
+
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="menu.html" class="nav-link">Cardápio</a>
+                <a href="about.html" class="nav-link">Sobre Nós</a>
+                <a href="contact.html" class="nav-link">Contato</a>
+                <a href="delivery.html" class="nav-link">Delivery</a>
+                <a href="blog.html" class="nav-link active">Blog</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <div class="auth-links">
+                    <!-- Conteúdo será preenchido pelo auth.js -->
+                </div>
+                <div class="relative">
+                    <a href="cart.html" class="nav-link cart-icon p-2 rounded-full hover:bg-gray-100">
+                        <i class="fas fa-shopping-cart text-xl text-gray-700"></i>
+                        <span class="cart-badge hidden">0</span>
+                    </a>
+                </div>
+                <button class="md:hidden text-gray-700 p-2 rounded hover:bg-gray-100" id="mobile-menu-button" aria-label="Abrir menu">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div class="md:hidden hidden bg-white py-2 px-4 shadow-lg border-t border-gray-200" id="mobile-menu">
+            <a href="index.html" class="block py-2 nav-link">Início</a>
+            <a href="menu.html" class="block py-2 nav-link">Cardápio</a>
+            <a href="about.html" class="block py-2 nav-link">Sobre Nós</a>
+            <a href="contact.html" class="block py-2 nav-link">Contato</a>
+            <a href="delivery.html" class="block py-2 nav-link">Delivery</a>
+            <a href="blog.html" class="block py-2 nav-link active">Blog</a>
+            <a href="faq.html" class="block py-2 nav-link">FAQ</a>
+            <a href="cart.html" class="block py-2 nav-link cart-icon-mobile">Carrinho</a>
+            <div class="block py-2 auth-links">
+                <!-- Conteúdo será preenchido pelo auth.js -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 py-8 min-h-screen">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">Blog Gastronômico</h1>
+        
+        <!-- Banner do Blog -->
+        <div class="relative rounded-lg overflow-hidden mb-12 shadow-xl">
+            <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Blog Gastronômico" class="w-full h-64 md:h-96 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-black to-transparent bg-opacity-60 flex items-center">
+                <div class="text-left px-6 md:px-12 max-w-2xl">
+                    <span class="inline-block bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold mb-4">Delícia Express</span>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">Descubra os segredos da nossa cozinha</h2>
+                    <p class="text-lg md:text-xl text-white mb-8 opacity-90">Receitas, dicas culinárias e curiosidades sobre gastronomia</p>
+                    <a href="#blog-posts" class="bg-white hover:bg-gray-100 text-orange-500 font-semibold py-2 px-6 rounded-full inline-flex items-center transition duration-300">
+                        Explorar artigos
+                        <i class="fas fa-arrow-down ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Pesquisa -->
+        <div class="max-w-2xl mx-auto mb-12">
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-grow">
+                        <input type="text" placeholder="Buscar no blog..." class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:outline-none">
+                    </div>
+                    <button class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
+                        <i class="fas fa-search mr-2"></i>
+                        Buscar
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Categorias do Blog -->
+        <div class="flex flex-wrap gap-2 mb-8 justify-center">
+            <button class="category-filter active px-4 py-2 rounded-full border text-sm font-medium transition">Todos</button>
+            <button class="category-filter px-4 py-2 rounded-full border text-sm font-medium transition">Receitas</button>
+            <button class="category-filter px-4 py-2 rounded-full border text-sm font-medium transition">Saúde</button>
+            <button class="category-filter px-4 py-2 rounded-full border text-sm font-medium transition">Dicas</button>
+            <button class="category-filter px-4 py-2 rounded-full border text-sm font-medium transition">Novidades</button>
+            <button class="category-filter px-4 py-2 rounded-full border text-sm font-medium transition">Eventos</button>
+        </div>
+        
+        <!-- Posts do Blog -->
+        <div id="blog-posts" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
+            <!-- Post 1 -->
+            <article class="bg-white rounded-lg overflow-hidden shadow-md blog-card">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1561626423-a51b45aef0a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Como fazer a pizza perfeita" class="w-full h-56 object-cover">
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Receitas</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-3">
+                        <span class="text-gray-500 text-sm"><i class="far fa-calendar-alt mr-2"></i>25 Abril, 2025</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2 hover:text-orange-500 transition duration-300">Como fazer a pizza perfeita em casa</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">Descubra os segredos dos nossos chefs para preparar uma massa de pizza crocante e saborosa, com ingredientes simples que você tem em casa.</p>
+                    <div class="flex justify-between items-center">
+                        <a href="blog-post.html" class="text-orange-500 hover:text-orange-600 font-medium inline-flex items-center">
+                            Ler mais
+                            <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                        <div class="flex items-center text-gray-500 text-sm">
+                            <i class="far fa-comment mr-1"></i> 12
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Post 2 -->
+            <article class="bg-white rounded-lg overflow-hidden shadow-md blog-card">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1560684352-8497838a2229?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Benefícios da comida mediterrânea" class="w-full h-56 object-cover">
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Saúde</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-3">
+                        <span class="text-gray-500 text-sm"><i class="far fa-calendar-alt mr-2"></i>20 Abril, 2025</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2 hover:text-orange-500 transition duration-300">5 benefícios da dieta mediterrânea</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">A dieta mediterrânea é considerada uma das mais saudáveis do mundo. Conheça os principais benefícios para a saúde e alguns pratos que você pode experimentar.</p>
+                    <div class="flex justify-between items-center">
+                        <a href="blog-post.html" class="text-orange-500 hover:text-orange-600 font-medium inline-flex items-center">
+                            Ler mais
+                            <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                        <div class="flex items-center text-gray-500 text-sm">
+                            <i class="far fa-comment mr-1"></i> 8
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Post 3 -->
+            <article class="bg-white rounded-lg overflow-hidden shadow-md blog-card">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1556943955-b1fd6a0c3cc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Dicas para churrasco perfeito" class="w-full h-56 object-cover">
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Dicas</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-3">
+                        <span class="text-gray-500 text-sm"><i class="far fa-calendar-alt mr-2"></i>15 Abril, 2025</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2 hover:text-orange-500 transition duration-300">10 dicas para um churrasco perfeito</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">O segredo para um churrasco de sucesso vai além da qualidade da carne. Confira nossas dicas para impressionar seus convidados no próximo fim de semana.</p>
+                    <div class="flex justify-between items-center">
+                        <a href="blog-post.html" class="text-orange-500 hover:text-orange-600 font-medium inline-flex items-center">
+                            Ler mais
+                            <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                        <div class="flex items-center text-gray-500 text-sm">
+                            <i class="far fa-comment mr-1"></i> 15
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Post 4 -->
+            <article class="bg-white rounded-lg overflow-hidden shadow-md blog-card">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Sushi: guia completo" class="w-full h-56 object-cover">
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Receitas</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-3">
+                        <span class="text-gray-500 text-sm"><i class="far fa-calendar-alt mr-2"></i>10 Abril, 2025</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2 hover:text-orange-500 transition duration-300">Sushi em casa: guia completo para iniciantes</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">Fazer sushi em casa pode parecer intimidador, mas com as técnicas certas, você consegue preparar peças deliciosas. Aprenda o passo a passo neste guia completo.</p>
+                    <div class="flex justify-between items-center">
+                        <a href="blog-post.html" class="text-orange-500 hover:text-orange-600 font-medium inline-flex items-center">
+                            Ler mais
+                            <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                        <div class="flex items-center text-gray-500 text-sm">
+                            <i class="far fa-comment mr-1"></i> 6
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Post 5 -->
+            <article class="bg-white rounded-lg overflow-hidden shadow-md blog-card">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Festival Gastronômico" class="w-full h-56 object-cover">
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Eventos</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-3">
+                        <span class="text-gray-500 text-sm"><i class="far fa-calendar-alt mr-2"></i>5 Abril, 2025</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2 hover:text-orange-500 transition duration-300">Festival Gastronômico 2025: O que esperar</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">O maior festival gastronômico do ano está chegando! Confira as atrações, chefs convidados e pratos que serão destaque nesta edição imperdível.</p>
+                    <div class="flex justify-between items-center">
+                        <a href="blog-post.html" class="text-orange-500 hover:text-orange-600 font-medium inline-flex items-center">
+                            Ler mais
+                            <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                        <div class="flex items-center text-gray-500 text-sm">
+                            <i class="far fa-comment mr-1"></i> 20
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Post 6 -->
+            <article class="bg-white rounded-lg overflow-hidden shadow-md blog-card">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1600803907087-f56d462fd26b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1073&q=80" alt="Novas tendências gastronômicas" class="w-full h-56 object-cover">
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Novidades</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-3">
+                        <span class="text-gray-500 text-sm"><i class="far fa-calendar-alt mr-2"></i>1 Abril, 2025</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2 hover:text-orange-500 transition duration-300">Tendências gastronômicas para 2025</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">Quais são as novas tendências que estão dominando o mundo da gastronomia? De ingredientes exóticos a técnicas inovadoras, descubra o que está em alta.</p>
+                    <div class="flex justify-between items-center">
+                        <a href="blog-post.html" class="text-orange-500 hover:text-orange-600 font-medium inline-flex items-center">
+                            Ler mais
+                            <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                        <div class="flex items-center text-gray-500 text-sm">
+                            <i class="far fa-comment mr-1"></i> 9
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <!-- Paginação -->
+        <div class="flex justify-center mb-12">
+            <nav class="inline-flex rounded-md shadow-sm" aria-label="Paginação">
+                <a href="#" class="pagination-link py-2 px-4 bg-white text-gray-700 font-medium rounded-l-md hover:bg-gray-100 transition flex items-center">
+                    <i class="fas fa-chevron-left mr-1 text-sm"></i>
+                    Anterior
+                </a>
+                <a href="#" class="pagination-link py-2 px-4 active font-medium">1</a>
+                <a href="#" class="pagination-link py-2 px-4 bg-white text-gray-700 font-medium hover:bg-gray-100 transition">2</a>
+                <a href="#" class="pagination-link py-2 px-4 bg-white text-gray-700 font-medium hover:bg-gray-100 transition">3</a>
+                <span class="py-2 px-2 bg-white text-gray-700">...</span>
+                <a href="#" class="pagination-link py-2 px-4 bg-white text-gray-700 font-medium hover:bg-gray-100 transition">8</a>
+                <a href="#" class="pagination-link py-2 px-4 bg-white text-gray-700 font-medium rounded-r-md hover:bg-gray-100 transition flex items-center">
+                    Próxima
+                    <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                </a>
+            </nav>
+        </div>
+        
+        <!-- Newsletter -->
+        <div class="bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-8 mb-12 shadow-lg">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div class="md:w-1/2 text-white">
+                        <h2 class="text-2xl md:text-3xl font-bold mb-4">Inscreva-se na nossa Newsletter</h2>
+                        <p class="text-white text-opacity-90 mb-4">Receba nossas melhores receitas, dicas culinárias e novidades diretamente no seu e-mail. Prometemos não enviar spam!</p>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle mr-2"></i>
+                                <span>Receitas exclusivas</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle mr-2"></i>
+                                <span>Dicas semanais</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 w-full">
+                        <form class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-700 font-medium mb-2">Nome</label>
+                                <input type="text" id="name" placeholder="Seu nome" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:outline-none">
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                                <input type="email" id="email" placeholder="Seu endereço de e-mail" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:outline-none">
+                            </div>
+                            <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Inscrever-se
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Posts Populares -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Posts Populares</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-lg overflow-hidden shadow-md blog-card">
+                    <div class="relative h-48">
+                        <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1032&q=80" alt="Sobremesas" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                            <h3 class="text-white text-lg font-bold px-4 text-center">Sobremesas irresistíveis para o verão</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-md blog-card">
+                    <div class="relative h-48">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=781&q=80" alt="Hambúrguer" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                            <h3 class="text-white text-lg font-bold px-4 text-center">Hambúrguer gourmet: segredos dos chefs</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-md blog-card">
+                    <div class="relative h-48">
+                        <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=872&q=80" alt="Café" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                            <h3 class="text-white text-lg font-bold px-4 text-center">A arte do café: do grão à xícara</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-md blog-card">
+                    <div class="relative h-48">
+                        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="Massas" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                            <h3 class="text-white text-lg font-bold px-4 text-center">Massas italianas autênticas</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-white pt-12 pb-8 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between gap-8">
+                <div class="mb-6 md:mb-0 md:w-1/3">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-utensils text-2xl text-orange-500 mr-2"></i>
+                        <h2 class="text-2xl font-bold">Delícia <span class="text-orange-500">Express</span></h2>
+                    </div>
+                    <p class="text-gray-400 mb-4">Sabor e qualidade entregues na sua porta com rapidez e excelência.</p>
+                    <div class="flex space-x-4 mb-6">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 md:w-2/3">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 uppercase tracking-wider text-gray-300">Links Rápidos</h3>
+                        <ul class="space-y-2">
+                            <li><a href="index.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Início</a></li>
+                            <li><a href="menu.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Cardápio</a></li>
+                            <li><a href="about.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Sobre Nós</a></li>
+                            <li><a href="contact.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Contato</a></li>
+                            <li><a href="delivery.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Delivery</a></li>
+                            <li><a href="blog.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Blog</a></li>
+                            <li><a href="faq.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 uppercase tracking-wider text-gray-300">Categorias</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300 text-sm">Receitas</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300 text-sm">Saúde</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300 text-sm">Dicas</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300 text-sm">Novidades</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300 text-sm">Eventos</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 uppercase tracking-wider text-gray-300">Contato</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-orange-500 mt-1 mr-2"></i>
+                                <span class="text-gray-400 text-sm">Av. Paulista, 1000, São Paulo - SP</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-phone text-orange-500 mr-2"></i>
+                                <span class="text-gray-400 text-sm">(11) 3456-7890</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope text-orange-500 mr-2"></i>
+                                <span class="text-gray-400 text-sm">contato@deliciaexpress.com</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-10 pt-6 text-center text-gray-500 text-sm">
+                <p> 2024 Delícia Express. Todos os direitos reservados. Desenvolvido com <i class="fas fa-heart text-red-500"></i>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/navigation-fix.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filtro de categorias
+            const categoryFilters = document.querySelectorAll('.category-filter');
+            
+            categoryFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    // Remover classe ativa de todos os filtros
+                    categoryFilters.forEach(f => f.classList.remove('active'));
+                    
+                    // Adicionar classe ativa ao filtro clicado
+                    this.classList.add('active');
+                    
+                    // Aqui você pode adicionar lógica para filtrar os posts
+                    // com base na categoria selecionada
+                });
+            });
+        });
+    </script>
+</body>
+</html>

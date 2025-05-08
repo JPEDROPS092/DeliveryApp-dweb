@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delícia Express - Delivery Gourmet</title>
+    <!-- Substituir CDN pelo arquivo local -->
+    <link rel="stylesheet" href="./css/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- Adicionar favicon -->
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <!-- Cabeçalho/Navegação -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center cursor-pointer nav-link-logo">
+                <i class="fas fa-utensils text-2xl text-orange-500 mr-2"></i>
+                <h1 class="text-2xl font-bold text-gray-800">Delícia <span class="text-orange-500">Express</span></h1>
+            </div>
+
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link active">Início</a>
+                <a href="menu.html" class="nav-link">Cardápio</a>
+                <a href="about.html" class="nav-link">Sobre Nós</a>
+                <a href="contact.html" class="nav-link">Contato</a>
+                <a href="delivery.html" class="nav-link">Delivery</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <div class="auth-links">
+                    <!-- Conteúdo será preenchido pelo auth.js -->
+                </div>
+                <div class="relative">
+                    <a href="cart.html" class="nav-link cart-icon p-2 rounded-full hover:bg-gray-100">
+                        <i class="fas fa-shopping-cart text-xl text-gray-700"></i>
+                        <span class="cart-badge hidden">0</span>
+                    </a>
+                </div>
+                <button class="md:hidden text-gray-700 p-2 rounded hover:bg-gray-100" id="mobile-menu-button" aria-label="Abrir menu">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div class="md:hidden hidden bg-white py-2 px-4 shadow-lg border-t border-gray-200" id="mobile-menu">
+            <a href="index.html" class="block py-2 nav-link active">Início</a>
+            <a href="menu.html" class="block py-2 nav-link">Cardápio</a>
+            <a href="about.html" class="block py-2 nav-link">Sobre Nós</a>
+            <a href="contact.html" class="block py-2 nav-link">Contato</a>
+            <a href="delivery.html" class="block py-2 nav-link">Delivery</a>
+            <a href="blog.html" class="block py-2 nav-link">Blog</a>
+            <a href="faq.html" class="block py-2 nav-link">FAQ</a>
+            <a href="cart.html" class="block py-2 nav-link cart-icon-mobile">Carrinho</a>
+            <div class="block py-2 auth-links">
+                <!-- Conteúdo será preenchido pelo auth.js -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal (Páginas) -->
+    <main class="container mx-auto px-4 py-8 min-h-screen">
+        <!-- Página Inicial -->
+        <div class="page active" id="home-page">
+            <!-- Banner Hero -->
+            <section class="hero-banner rounded-lg flex items-center justify-center text-center text-white mb-12 shadow-lg">
+                <div class="px-6 bg-black bg-opacity-50 py-10 rounded-lg">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 drop-shadow-md">Comida deliciosa entregue na sua porta</h2>
+                    <p class="text-xl mb-8 drop-shadow-sm">Pratos gourmet preparados com ingredientes frescos e muito amor</p>
+                    <a href="menu.html" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 shadow-md">
+                        Ver Cardápio
+                    </a>
+                </div>
+            </section>
+
+            <!-- Destaques do Cardápio -->
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Nossos Destaques</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Item 1 -->
+                    <div class="food-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=781&q=80" alt="Pizza Margherita" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-gray-800">Pizza Margherita</h3>
+                                <span class="text-orange-500 font-bold">R$ 45,90</span>
+                            </div>
+                            <p class="text-gray-600 mb-4 text-sm">Massa fina, molho de tomate caseiro, mussarela fresca, manjericão e azeite de oliva.</p>
+                            <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="1" data-name="Pizza Margherita" data-price="45.90">
+                                <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="food-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Hambúrguer Gourmet" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-gray-800">Hambúrguer Gourmet</h3>
+                                <span class="text-orange-500 font-bold">R$ 32,50</span>
+                            </div>
+                            <p class="text-gray-600 mb-4 text-sm">Pão brioche, carne angus 180g, queijo cheddar, bacon crocante e molho especial.</p>
+                            <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="2" data-name="Hambúrguer Gourmet" data-price="32.50">
+                               <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="food-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1527&q=80" alt="Salada Caesar" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-gray-800">Salada Caesar</h3>
+                                <span class="text-orange-500 font-bold">R$ 28,90</span>
+                            </div>
+                            <p class="text-gray-600 mb-4 text-sm">Alface romana, croutons, frango grelhado, parmesão e molho caesar caseiro.</p>
+                            <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition duration-300 text-sm font-medium" data-id="3" data-name="Salada Caesar" data-price="28.90">
+                                <i class="fas fa-cart-plus mr-2"></i>Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sobre Nós Resumo -->
+            <section class="bg-orange-50 rounded-lg p-8 mb-12 border border-orange-100">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-6 md:mb-0 md:pr-8">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Sobre o Delícia Express</h2>
+                        <p class="text-gray-700 mb-4">Nascemos da paixão por unir sabores excepcionais e experiências gastronômicas memoráveis. Nossa missão é entregar não apenas comida, mas momentos de prazer.</p>
+                        <p class="text-gray-700 mb-4">Com ingredientes frescos, receitas exclusivas e um toque de criatividade, transformamos cada pedido em uma celebração do sabor.</p>
+                        <a href="about.html" class="bg-orange-500 hover:bg-orange-600 text-white py-2 px-6 rounded-lg transition duration-300 text-sm font-medium inline-block">
+                            Conheça Nossa História
+                        </a>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="images/cozinheiro.jpg" alt="Nossa Equipe" class="rounded-lg shadow-md w-full h-64 object-cover">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Área do usuário logado -->
+            <section class="user-info hidden bg-white rounded-lg p-8 mb-12 shadow-md">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Sua Área Pessoal</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-orange-50 p-6 rounded-lg border border-orange-100">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-clipboard-list text-2xl text-orange-500 mr-3"></i>
+                            <h3 class="text-lg font-semibold">Meus Pedidos</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Acompanhe o status dos seus pedidos recentes</p>
+                        <a href="orders.html" class="text-orange-500 hover:text-orange-700 font-medium">Ver pedidos <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                    
+                    <div class="bg-orange-50 p-6 rounded-lg border border-orange-100">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-user-circle text-2xl text-orange-500 mr-3"></i>
+                            <h3 class="text-lg font-semibold">Meu Perfil</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Atualize seus dados pessoais e preferências</p>
+                        <a href="profile.html" class="text-orange-500 hover:text-orange-700 font-medium">Editar perfil <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                    
+                    <div class="bg-orange-50 p-6 rounded-lg border border-orange-100">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-map-marker-alt text-2xl text-orange-500 mr-3"></i>
+                            <h3 class="text-lg font-semibold">Meus Endereços</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Gerencie seus endereços de entrega</p>
+                        <a href="addresses.html" class="text-orange-500 hover:text-orange-700 font-medium">Ver endereços <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-white pt-12 pb-8 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between gap-8">
+                <div class="mb-6 md:mb-0 md:w-1/3">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-utensils text-2xl text-orange-500 mr-2"></i>
+                        <h2 class="text-2xl font-bold">Delícia <span class="text-orange-500">Express</span></h2>
+                    </div>
+                    <p class="text-gray-400 mb-4">Sabor e qualidade entregues na sua porta com rapidez e excelência.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 md:w-2/3">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 uppercase tracking-wider text-gray-300">Links Rápidos</h3>
+                        <ul class="space-y-2">
+                            <li><a href="index.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Início</a></li>
+                            <li><a href="menu.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Cardápio</a></li>
+                            <li><a href="about.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Sobre Nós</a></li>
+                            <li><a href="contact.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 uppercase tracking-wider text-gray-300">Suporte</h3>
+                        <ul class="space-y-2">
+                            <li><a href="faq.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">FAQ</a></li>
+                            <li><a href="delivery.html" class="text-gray-400 hover:text-white transition duration-300 text-sm">Política de Entrega</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300 text-sm">Termos de Uso</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300 text-sm">Política de Privacidade</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 uppercase tracking-wider text-gray-300">Contato</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-orange-500 mt-1 mr-2"></i>
+                                <span class="text-gray-400 text-sm">Av. Exemplo, 123<br>São Paulo, SP</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-phone text-orange-500 mr-2"></i>
+                                <span class="text-gray-400 text-sm">(11) 5555-5555</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope text-orange-500 mr-2"></i>
+                                <span class="text-gray-400 text-sm">contato@deliciaexpress.com</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-10 pt-6 text-center text-gray-500 text-sm">
+                <p> 2024 Delícia Express. Todos os direitos reservados. Desenvolvido com <i class="fas fa-heart text-red-500"></i>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/navigation-fix.js"></script>
+</body>
+</html>
