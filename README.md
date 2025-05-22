@@ -91,7 +91,7 @@ DeliveryApp-dweb/
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/DeliveryApp-dweb.git
+git clone https://github.com/jpedrops092/DeliveryApp-dweb.git
 cd DeliveryApp-dweb
 ```
 
@@ -128,4 +128,4 @@ Todas as páginas e componentes são otimizados para oferecer a melhor experiên
 
 ---
 
-Desenvolvido por [Seu Nome] 
+Desenvolvido por jpedrops
